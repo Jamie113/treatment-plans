@@ -62,9 +62,9 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-accent-blue-50">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-accent-blue-50">
       {/* Header */}
-      <div className="border-b border-slate-200 bg-white/80 backdrop-blur-sm shadow-lg sticky top-0 z-50">
+      <div className="border-b border-gray-200 bg-white/80 backdrop-blur-sm shadow-lg sticky top-0 z-50">
         <div className="mx-auto max-w-7xl px-6 py-8">
           <div className="flex items-start justify-between gap-6">
             <div className="flex-1">
@@ -72,7 +72,7 @@ export default function App() {
                 <ClipboardList size={16} />
                 Treatment Plans
               </div>
-              <h1 className="text-4xl md:text-5xl font-black text-slate-900 mb-4 leading-tight">
+              <h1 className="text-4xl md:text-5xl font-black text-gray-900 mb-4 leading-tight">
                 Create Your Treatment Plan
               </h1>
               <div className="flex flex-wrap items-center gap-3">

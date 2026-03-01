@@ -40,12 +40,12 @@ export function MedicationsSection(props) {
 function MedicationItem(props) {
   const { item, index, medications, medError, updateMedication, removeMedication, moveVariant } = props;
   return (
-    <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all hover:shadow-md">
+    <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition-all hover:shadow-md">
       <div className="flex items-start justify-between gap-4">
         <div className="flex-1">
           <div className="flex items-center gap-2">
-            <Pill size={16} className="text-slate-400" />
-            <div className="text-sm font-semibold text-slate-700">Medication</div>
+            <Pill size={16} className="text-gray-400" />
+            <div className="text-sm font-semibold text-gray-700">Medication</div>
           </div>
           <select
             className="mt-3 select select-bordered w-full"
@@ -73,8 +73,8 @@ function MedicationItem(props) {
 
           <div className="mt-5">
             <div className="flex items-center gap-2">
-              <Zap size={16} className="text-slate-400" />
-              <div className="text-sm font-semibold text-slate-700">Allowed dose path (variants)</div>
+              <Zap size={16} className="text-gray-400" />
+              <div className="text-sm font-semibold text-gray-700">Allowed dose path (variants)</div>
             </div>
             <div className="mt-3 flex flex-wrap gap-2">
               {(item.med?.variants ?? []).map((v) => {
@@ -99,15 +99,15 @@ function MedicationItem(props) {
                 );
               })}
               {!item.medicationId && (
-                <div className="text-sm text-slate-500 italic">
+                <div className="text-sm text-gray-500 italic">
                   Select a medication to choose variants.
                 </div>
               )}
             </div>
 
             {item.variants.length > 0 && (
-              <div className="mt-4 rounded-lg bg-gradient-to-br from-slate-50 to-slate-100 p-4 border border-slate-200">
-                <div className="text-xs font-semibold uppercase tracking-wide text-slate-600">
+              <div className="mt-4 rounded-lg bg-gradient-to-br from-gray-50 to-slate-100 p-4 border border-gray-200">
+                <div className="text-xs font-semibold uppercase tracking-wide text-gray-600">
                   Ordered ladder
                 </div>
                 <div className="mt-3 space-y-2">
@@ -116,8 +116,8 @@ function MedicationItem(props) {
                       key={`${v}-${i}`}
                       className="flex items-center justify-between rounded-lg bg-base-100 border border-base-300 px-3 py-2.5 transition-all hover:border-base-400 hover:shadow-sm"
                     >
-                      <div className="text-sm font-medium text-slate-700">
-                        <span className="inline-flex items-center justify-center w-6 h-6 bg-slate-900 text-white rounded-full text-xs font-bold mr-2">{i + 1}</span>
+                      <div className="text-sm font-medium text-gray-700">
+                        <span className="inline-flex items-center justify-center w-6 h-6 bg-gray-900 text-white rounded-full text-xs font-bold mr-2">{i + 1}</span>
                         {v}
                       </div>
                       <div className="flex gap-1.5">
@@ -153,7 +153,7 @@ function MedicationItem(props) {
           </div>
 
           <button
-            className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-slate-700 hover:text-slate-900 transition-colors"
+            className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors"
             onClick={() =>
               updateMedication(item.key, {
                 ui: { ...item.ui, showMovement: !item.ui.showMovement },

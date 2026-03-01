@@ -14,7 +14,7 @@ export function AddOnsSection(props) {
           const selected = props.addons[a.id]?.selected ?? false;
           const inclusion = props.addons[a.id]?.inclusion ?? "optional";
           return (
-            <div key={a.id} className="flex items-center justify-between rounded-xl border border-slate-200 bg-white p-5 transition-all hover:border-slate-300 hover:shadow-sm">
+            <div key={a.id} className="flex items-center justify-between rounded-xl border border-gray-200 bg-white p-5 transition-all hover:border-gray-300 hover:shadow-sm">
               <label className="flex items-center gap-3 cursor-pointer flex-1">
                 <input
                   type="checkbox"
@@ -22,10 +22,10 @@ export function AddOnsSection(props) {
                   onChange={(e) => props.toggleAddon(a.id, e.target.checked)}
                   className="w-4 h-4 rounded cursor-pointer"
                 />
-                <div className="text-sm font-medium text-slate-900">{a.name}</div>
+                <div className="text-sm font-medium text-gray-900">{a.name}</div>
               </label>
               <div className="flex items-center gap-3">
-                <span className="text-xs font-medium text-slate-500 uppercase tracking-wide">Inclusion</span>
+                <span className="text-xs font-medium text-gray-500 uppercase tracking-wide">Inclusion</span>
                 <select
                   className="select select-bordered select-sm"
                   value={inclusion}

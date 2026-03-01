@@ -13,9 +13,9 @@ export function PrescriptionRulesSection(props) {
         {props.selectedMedicationDetails
           .filter((x) => x.medicationId)
           .map((item) => (
-            <div key={item.key} className="rounded-xl border border-slate-200 bg-white p-4 transition-all hover:border-slate-300 hover:shadow-sm">
-              <div className="flex items-center gap-2 text-sm font-bold text-slate-900 mb-4 pb-3 border-b border-slate-200">
-                <Pill size={16} className="text-slate-400" />
+            <div key={item.key} className="rounded-xl border border-gray-200 bg-white p-4 transition-all hover:border-gray-300 hover:shadow-sm">
+              <div className="flex items-center gap-2 text-sm font-bold text-gray-900 mb-4 pb-3 border-b border-gray-200">
+                <Pill size={16} className="text-gray-400" />
                 {item.med?.name ?? "Medication"}
               </div>
 
@@ -68,7 +68,7 @@ export function PrescriptionRulesSection(props) {
           ))}
 
         {props.selectedMedicationDetails.every((x) => !x.medicationId) && (
-          <div className="rounded-lg border border-slate-200 bg-slate-50 p-4 text-sm text-slate-600">
+          <div className="rounded-lg border border-gray-200 bg-gray-50 p-4 text-sm text-gray-600">
             Select medications above to configure prescription rules.
           </div>
         )}

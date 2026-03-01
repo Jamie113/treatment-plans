@@ -18,22 +18,22 @@ export function BillingSection(props) {
             className={classNames(
               "text-left rounded-xl border p-4 transition-all",
               props.billingId === b.id
-                ? "border-slate-900 bg-slate-50 shadow-md"
-                : "border-slate-200 bg-white hover:border-slate-300 hover:shadow-sm"
+                ? "border-gray-900 bg-gray-50 shadow-md"
+                : "border-gray-200 bg-white hover:border-gray-300 hover:shadow-sm"
             )}
           >
             <div className="flex items-start justify-between gap-2">
               <div className="flex-1">
-                <div className="text-sm font-bold text-slate-900">{b.title}</div>
-                <div className="mt-1 text-sm text-slate-600">{b.subtitle}</div>
+                <div className="text-sm font-bold text-gray-900">{b.title}</div>
+                <div className="mt-1 text-sm text-gray-600">{b.subtitle}</div>
               </div>
               {props.billingId === b.id && (
                 <div className="flex-shrink-0 mt-1">
-                  <Check size={20} className="text-slate-900" />
+                  <Check size={20} className="text-gray-900" />
                 </div>
               )}
             </div>
-            <div className="mt-3 text-xs font-semibold text-slate-500 uppercase tracking-wide">
+            <div className="mt-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">
               Example: {b.id === "monthly" ? "£149/mo" : b.id === "upfront" ? "£399 upfront" : "—"}
             </div>
           </button>

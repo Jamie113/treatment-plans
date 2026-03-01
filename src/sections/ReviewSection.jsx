@@ -9,43 +9,43 @@ export function ReviewSection(props) {
       subtitle="Quick summary before creation."
       icon={<ClipboardList size={20} />}
     >
-      <div className="rounded-lg border border-slate-200 bg-gradient-to-br from-slate-50 to-white p-5">
-        <div className="font-semibold text-slate-900 mb-3 flex items-center gap-2">
+      <div className="rounded-lg border border-gray-200 bg-gradient-to-br from-gray-50 to-white p-5">
+        <div className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
           <Check size={18} className="text-green-600" />
           Plan includes:
         </div>
         <ul className="space-y-2">
-          <li className="flex items-center gap-2 text-sm text-slate-700">
-            <span className="inline-flex items-center justify-center w-5 h-5 bg-slate-900 text-white text-xs rounded-full font-bold">{props.medications.filter((m) => m.medicationId).length}</span>
+          <li className="flex items-center gap-2 text-sm text-gray-700">
+            <span className="inline-flex items-center justify-center w-5 h-5 bg-gray-900 text-white text-xs rounded-full font-bold">{props.medications.filter((m) => m.medicationId).length}</span>
             medication(s)
           </li>
-          <li className="flex items-center gap-2 text-sm text-slate-700">
-            <span className="inline-flex items-center justify-center w-5 h-5 bg-slate-900 text-white text-xs rounded-full font-bold">{props.medications.reduce((acc, m) => acc + (m.variants?.length ?? 0), 0)}</span>
+          <li className="flex items-center gap-2 text-sm text-gray-700">
+            <span className="inline-flex items-center justify-center w-5 h-5 bg-gray-900 text-white text-xs rounded-full font-bold">{props.medications.reduce((acc, m) => acc + (m.variants?.length ?? 0), 0)}</span>
             total variant selections
           </li>
-          <li className="flex items-center gap-2 text-sm text-slate-700">
-            <span className="inline-flex items-center justify-center w-5 h-5 bg-slate-900 text-white text-xs rounded-full font-bold">{Object.entries(props.addons).filter(([, v]) => v.selected).length}</span>
+          <li className="flex items-center gap-2 text-sm text-gray-700">
+            <span className="inline-flex items-center justify-center w-5 h-5 bg-gray-900 text-white text-xs rounded-full font-bold">{Object.entries(props.addons).filter(([, v]) => v.selected).length}</span>
             add-on(s)
           </li>
-          <li className="flex items-center gap-2 text-sm text-slate-700">
-            <span className="inline-flex items-center justify-center w-5 h-5 bg-slate-900 text-white text-xs rounded-full font-bold">{props.ordersCount}</span>
+          <li className="flex items-center gap-2 text-sm text-gray-700">
+            <span className="inline-flex items-center justify-center w-5 h-5 bg-gray-900 text-white text-xs rounded-full font-bold">{props.ordersCount}</span>
             orders (approx)
           </li>
-          <li className="flex items-center gap-2 text-sm text-slate-700">
-            <DollarSign size={16} className="text-slate-400" />
+          <li className="flex items-center gap-2 text-sm text-gray-700">
+            <DollarSign size={16} className="text-gray-400" />
             Billing: <span className="font-medium">{BILLING_OPTIONS.find((b) => b.id === props.billingId)?.title ?? "—"}</span>
           </li>
         </ul>
       </div>
 
-      <details className="rounded-xl border border-slate-200 bg-white shadow-md hover:shadow-lg transition-all cursor-pointer group mt-6">
-        <summary className="font-bold text-slate-900 p-4 flex items-center gap-3 hover:bg-slate-50 transition-colors">
+      <details className="rounded-xl border border-gray-200 bg-white shadow-md hover:shadow-lg transition-all cursor-pointer group mt-6">
+        <summary className="font-bold text-gray-900 p-4 flex items-center gap-3 hover:bg-gray-50 transition-colors">
           <Settings size={18} className="text-accent-blue-500" />
           View Configuration
-          <span className="ml-auto text-slate-400 group-open:rotate-180 transition-transform">▼</span>
+          <span className="ml-auto text-gray-400 group-open:rotate-180 transition-transform">▼</span>
         </summary>
-        <div className="border-t border-slate-200 p-4">
-          <pre className="overflow-auto rounded-lg bg-slate-900 p-4 text-xs text-slate-100 font-mono max-h-96 text-left">
+        <div className="border-t border-gray-200 p-4">
+          <pre className="overflow-auto rounded-lg bg-gray-900 p-4 text-xs text-slate-100 font-mono max-h-96 text-left">
             {JSON.stringify(props.planConfigPreview, null, 2)}
           </pre>
         </div>

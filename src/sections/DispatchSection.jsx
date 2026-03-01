@@ -9,11 +9,11 @@ export function DispatchSection(props) {
       subtitle="Preview the order timeline derived from duration and cycle."
       icon={<Clock size={20} />}
     >
-      <div className="flex items-start justify-between gap-6 mb-6 pb-6 border-b border-slate-200">
-        <div className="text-sm text-slate-700">
+      <div className="flex items-start justify-between gap-6 mb-6 pb-6 border-b border-gray-200">
+        <div className="text-sm text-gray-700">
           <div className="flex items-center gap-2 mb-3">
-            <span className="text-slate-500">Orders (approx):</span>
-            <span className="font-bold text-lg text-slate-900">{props.ordersCount}</span>
+            <span className="text-gray-500">Orders (approx):</span>
+            <span className="font-bold text-lg text-gray-900">{props.ordersCount}</span>
           </div>
         </div>
         <Toggle
@@ -25,12 +25,12 @@ export function DispatchSection(props) {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
         {props.orderPreview.map((o) => (
-          <div key={o.index} className="rounded-lg border border-slate-200 bg-gradient-to-br from-slate-50 to-white p-4 transition-all hover:border-slate-300 hover:shadow-sm">
-            <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-slate-500 mb-2">
+          <div key={o.index} className="rounded-lg border border-gray-200 bg-gradient-to-br from-gray-50 to-white p-4 transition-all hover:border-gray-300 hover:shadow-sm">
+            <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-gray-500 mb-2">
               <Package size={14} />
               Order {o.index}
             </div>
-            <div className="text-base font-bold text-slate-900">{fmtDate(o.date)}</div>
+            <div className="text-base font-bold text-gray-900">{fmtDate(o.date)}</div>
           </div>
         ))}
       </div>

@@ -28,35 +28,35 @@ export function SummaryPanel(props) {
             </div>
           </SummaryBlock>
 
-          <div className="border-t-2 border-slate-200 pt-6">
+          <div className="border-t-2 border-gray-200 pt-6">
             <SummaryBlock title="Medications">
               {props.selectedMedicationDetails
                 .filter((x) => x.medicationId)
                 .map((x) => (
-                  <div key={x.key} className="rounded-xl border border-slate-200 bg-gradient-to-br from-slate-50 to-white p-4 hover:shadow-lg transition-all hover:-translate-y-0.5">
-                    <div className="font-bold text-slate-900 flex items-center gap-2 mb-3">
+                  <div key={x.key} className="rounded-xl border border-gray-200 bg-gradient-to-br from-gray-50 to-white p-4 hover:shadow-lg transition-all hover:-translate-y-0.5">
+                    <div className="font-bold text-gray-900 flex items-center gap-2 mb-3">
                       <Pill size={16} className="text-accent-blue-500" />
                       {x.med?.name}
                     </div>
-                    <div className="text-sm font-mono text-slate-700 bg-white rounded-lg p-2.5 border border-slate-100 mb-2">
+                    <div className="text-sm font-mono text-gray-700 bg-white rounded-lg p-2.5 border border-slate-100 mb-2">
                       {x.variants.length
                         ? x.variants.join(" → ")
-                        : <span className="italic text-slate-400">—</span>}
+                        : <span className="italic text-gray-400">—</span>}
                     </div>
-                    <div className="text-xs font-bold text-slate-600 uppercase">
+                    <div className="text-xs font-bold text-gray-600 uppercase">
                       Rx: {PRESCRIPTION_FREQ.find((p) => p.id === x.prescription.renewalFrequency)?.label ?? "—"}
                     </div>
                   </div>
                 ))}
               {props.selectedMedicationDetails.every((x) => !x.medicationId) && (
-                <div className="rounded-lg border-2 border-dashed border-slate-300 bg-slate-50 p-4 text-center text-slate-500 italic text-sm">
+                <div className="rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 p-4 text-center text-gray-500 italic text-sm">
                   No medications yet
                 </div>
               )}
             </SummaryBlock>
           </div>
 
-          <div className="border-t-2 border-slate-200 pt-6">
+          <div className="border-t-2 border-gray-200 pt-6">
             <SummaryBlock title="Add-ons">
               {Object.entries(props.addons).filter(([, v]) => v.selected).length > 0 ? (
                 <div className="space-y-2">
@@ -64,7 +64,7 @@ export function SummaryPanel(props) {
                     .filter(([, v]) => v.selected)
                     .map(([id, v]) => (
                       <div key={id} className="flex items-center justify-between bg-gradient-green border border-accent-green-200 rounded-lg p-3 hover:shadow-md transition-all">
-                        <span className="text-sm font-bold text-slate-900">
+                        <span className="text-sm font-bold text-gray-900">
                           {ADDON_CATALOGUE.find((a) => a.id === id)?.name}
                         </span>
                         <span className="text-xs font-black text-accent-green-700 uppercase bg-white px-3 py-1 rounded-full border border-accent-green-200">
@@ -74,29 +74,29 @@ export function SummaryPanel(props) {
                     ))}
                 </div>
               ) : (
-                <div className="rounded-lg border-2 border-dashed border-slate-300 bg-slate-50 p-4 text-center text-slate-500 italic text-sm">
+                <div className="rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 p-4 text-center text-gray-500 italic text-sm">
                   No add-ons selected
                 </div>
               )}
             </SummaryBlock>
           </div>
 
-          <div className="border-t-2 border-slate-200 pt-6">
+          <div className="border-t-2 border-gray-200 pt-6">
             <SummaryBlock title="Billing">
-              <div className="rounded-xl border border-slate-200 bg-gradient-to-br from-slate-50 to-white p-4 hover:shadow-md transition-all">
-                <div className="font-bold text-slate-900 mb-3 flex items-center gap-2">
+              <div className="rounded-xl border border-gray-200 bg-gradient-to-br from-gray-50 to-white p-4 hover:shadow-md transition-all">
+                <div className="font-bold text-gray-900 mb-3 flex items-center gap-2">
                   <DollarSign size={18} className="text-accent-orange-500" />
                   {BILLING_OPTIONS.find((b) => b.id === props.billingId)?.title ?? "—"}
                 </div>
-                <div className="space-y-2 text-xs font-bold text-slate-600 bg-white rounded-lg p-3 border border-slate-100">
+                <div className="space-y-2 text-xs font-bold text-gray-600 bg-white rounded-lg p-3 border border-slate-100">
                   <div className="flex items-center gap-2">
-                    <span className={props.alignBillingWithDispatch ? "text-accent-green-600" : "text-slate-400"}>
+                    <span className={props.alignBillingWithDispatch ? "text-accent-green-600" : "text-gray-400"}>
                       {props.alignBillingWithDispatch ? "✓" : "○"}
                     </span>
                     <span>Align with dispatch</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <span className={props.chargeOnApproval ? "text-accent-green-600" : "text-slate-400"}>
+                    <span className={props.chargeOnApproval ? "text-accent-green-600" : "text-gray-400"}>
                       {props.chargeOnApproval ? "✓" : "○"}
                     </span>
                     <span>Charge on approval</span>
