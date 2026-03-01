@@ -39,7 +39,7 @@ export function RadioPill({ checked, label, onClick }) {
       onClick={onClick}
       className={`inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium rounded-lg border transition-all ${
         checked
-          ? 'bg-gray-900 text-white border-gray-900 shadow-sm'
+          ? 'bg-blue-700 text-white border-blue-700 shadow-sm'
           : 'bg-white text-gray-600 border-gray-200 hover:border-gray-300 hover:text-gray-900'
       }`}
     >
@@ -63,8 +63,8 @@ export function Toggle({ label, checked, onChange, disabled }) {
         aria-checked={checked}
         onClick={() => !disabled && onChange(!checked)}
         disabled={disabled}
-        className={`relative flex-shrink-0 inline-flex items-center h-6 w-11 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-gray-900/20 focus:ring-offset-2 ${
-          checked ? 'bg-gray-900' : 'bg-gray-200'
+        className={`relative flex-shrink-0 inline-flex items-center h-6 w-11 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-offset-2 ${
+          checked ? 'bg-blue-700' : 'bg-gray-200'
         } ${disabled ? 'opacity-40 cursor-not-allowed' : 'cursor-pointer hover:opacity-90'}`}
       >
         <span

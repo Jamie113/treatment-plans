@@ -1,4 +1,4 @@
-import { ClipboardList, Pill } from "lucide-react";
+import { ClipboardList, DropletBottleAlt } from "flowbite-react-icons/outline";
 import { Card, Field, Toggle } from "../components/UIComponents";
 import { PRESCRIPTION_FREQ } from "../constants/catalogues";
 
@@ -18,7 +18,7 @@ export function PrescriptionRulesSection(props) {
           .map((item) => (
             <div key={item.key} className="rounded-xl border border-gray-200 bg-gray-50/50 p-4">
               <div className="flex items-center gap-2 text-sm font-semibold text-gray-900 mb-4 pb-3 border-b border-gray-200">
-                <Pill size={15} className="text-gray-400" />
+                <DropletBottleAlt size={15} className="text-gray-400" />
                 {item.med?.name ?? "Medication"}
               </div>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">

@@ -1,4 +1,4 @@
-import { Package } from "lucide-react";
+import { GiftBox } from "flowbite-react-icons/outline";
 import { Card } from "../components/UIComponents";
 import { ADDON_CATALOGUE } from "../constants/catalogues";
 
@@ -7,7 +7,7 @@ export function AddOnsSection(props) {
     <Card
       title="Add-on items"
       subtitle="Include extras automatically or offer as optional items."
-      icon={<Package size={18} />}
+      icon={<GiftBox size={18} />}
     >
       <div className="space-y-3">
         {ADDON_CATALOGUE.map((a) => {
@@ -35,7 +35,7 @@ export function AddOnsSection(props) {
                     onClick={() => props.toggleAddon(a.id, !selected)}
                     className={`w-4.5 h-4.5 w-[18px] h-[18px] rounded border-2 flex items-center justify-center cursor-pointer transition-all ${
                       selected
-                        ? "bg-gray-900 border-gray-900"
+                        ? "bg-blue-700 border-blue-700"
                         : "bg-white border-gray-300 hover:border-gray-500"
                     }`}
                   >

@@ -1,4 +1,4 @@
-import { DollarSign, Check } from "lucide-react";
+import { Dollar, Check } from "flowbite-react-icons/outline";
 import { Card, Toggle } from "../components/UIComponents";
 import { BILLING_OPTIONS } from "../constants/catalogues";
 import { classNames } from "../utils/helpers";
@@ -8,7 +8,7 @@ export function BillingSection(props) {
     <Card
       title="Billing plan"
       subtitle="Choose how the plan is charged across the lifecycle."
-      icon={<DollarSign size={18} />}
+      icon={<Dollar size={18} />}
     >
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-6">
         {BILLING_OPTIONS.map((b) => (
@@ -17,9 +17,9 @@ export function BillingSection(props) {
             type="button"
             onClick={() => props.setBillingId(b.id)}
             className={classNames(
-              "text-left rounded-xl border p-4 transition-all focus:outline-none focus:ring-2 focus:ring-gray-900/10",
+              "text-left rounded-xl border p-4 transition-all focus:outline-none focus:ring-2 focus:ring-blue-300",
               props.billingId === b.id
-                ? "border-gray-900 bg-gray-900 shadow-sm"
+                ? "border-blue-700 bg-blue-700 shadow-sm"
                 : "border-gray-200 bg-white hover:border-gray-300 hover:shadow-sm"
             )}
           >

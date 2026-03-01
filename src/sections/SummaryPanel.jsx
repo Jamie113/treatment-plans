@@ -1,4 +1,4 @@
-import { ClipboardList, Pill, DollarSign } from "lucide-react";
+import { ClipboardList, DropletBottleAlt, Dollar } from "flowbite-react-icons/outline";
 import { Card, SummaryBlock } from "../components/UIComponents";
 import { ADDON_CATALOGUE, BILLING_OPTIONS, PRESCRIPTION_FREQ } from "../constants/catalogues";
 
@@ -38,7 +38,7 @@ export function SummaryPanel(props) {
                   .map((x) => (
                     <div key={x.key} className="rounded-xl border border-gray-200 bg-gray-50 p-3">
                       <div className="font-semibold text-sm text-gray-900 flex items-center gap-2 mb-2">
-                        <Pill size={13} className="text-blue-500 flex-shrink-0" />
+                        <DropletBottleAlt size={13} className="text-blue-500 flex-shrink-0" />
                         {x.med?.name}
                       </div>
                       <div className="text-xs font-mono text-gray-600 bg-white rounded-lg px-2.5 py-1.5 border border-gray-100 mb-1.5 leading-relaxed">
@@ -91,7 +91,7 @@ export function SummaryPanel(props) {
             <SummaryBlock title="Billing">
               <div className="rounded-xl border border-gray-200 bg-gray-50 p-3">
                 <div className="font-semibold text-sm text-gray-900 mb-2.5 flex items-center gap-2">
-                  <DollarSign size={15} className="text-orange-500" />
+                  <Dollar size={15} className="text-orange-500" />
                   {BILLING_OPTIONS.find((b) => b.id === props.billingId)?.title ?? "Not selected"}
                 </div>
                 <div className="space-y-1.5 text-xs text-gray-500">

@@ -1,4 +1,4 @@
-import { Pill, Plus, Zap, Eye, EyeOff, ChevronUp, ChevronDown, Trash2, AlertCircle } from "lucide-react";
+import { DropletBottleAlt, Plus, Fire, Eye, EyeSlash, ChevronUp, ChevronDown, TrashBin, ExclamationCircle } from "flowbite-react-icons/outline";
 import { Card, Field, Toggle } from "../components/UIComponents";
 import { MEDICATION_CATALOGUE, PRESCRIPTION_FREQ } from "../constants/catalogues";
 import { classNames, newMedicationItem } from "../utils/helpers";
@@ -14,7 +14,7 @@ export function MedicationsSection(props) {
     <Card
       title="Medications"
       subtitle="Add one or more medications and define the allowed dose path (variant ladder)."
-      icon={<Pill size={18} />}
+      icon={<DropletBottleAlt size={18} />}
       right={
         <button
           type="button"
@@ -50,7 +50,7 @@ function MedicationItem({ item, index, medications, medError, updateMedication, 
       {/* Medication select */}
       <div>
         <label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-2">
-          <Pill size={14} className="text-gray-400" />
+          <DropletBottleAlt size={14} className="text-gray-400" />
           Medication
         </label>
         <select
@@ -79,7 +79,7 @@ function MedicationItem({ item, index, medications, medError, updateMedication, 
       {/* Variant picker */}
       <div>
         <label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-2">
-          <Zap size={14} className="text-gray-400" />
+          <Fire size={14} className="text-gray-400" />
           Dose path (variants)
         </label>
         <div className="flex flex-wrap gap-2">
@@ -99,7 +99,7 @@ function MedicationItem({ item, index, medications, medError, updateMedication, 
                 className={classNames(
                   "px-3 py-1 text-xs font-semibold rounded-full border transition-all",
                   selected
-                    ? "bg-gray-900 text-white border-gray-900"
+                    ? "bg-blue-700 text-white border-blue-700"
                     : "bg-white text-gray-600 border-gray-200 hover:border-gray-400 hover:text-gray-900"
                 )}
               >
@@ -125,7 +125,7 @@ function MedicationItem({ item, index, medications, medError, updateMedication, 
                   className="flex items-center justify-between px-4 py-2.5 hover:bg-gray-50 transition-colors"
                 >
                   <div className="flex items-center gap-3">
-                    <span className="inline-flex items-center justify-center w-5 h-5 bg-gray-900 text-white rounded-full text-xs font-bold flex-shrink-0">
+                    <span className="inline-flex items-center justify-center w-5 h-5 bg-blue-700 text-white rounded-full text-xs font-bold flex-shrink-0">
                       {i + 1}
                     </span>
                     <span className="text-sm font-medium text-gray-800">{v}</span>
@@ -158,7 +158,7 @@ function MedicationItem({ item, index, medications, medError, updateMedication, 
 
         {medError && (
           <div className="mt-2 flex items-start gap-2 text-sm text-red-600">
-            <AlertCircle size={15} className="flex-shrink-0 mt-0.5" />
+            <ExclamationCircle size={15} className="flex-shrink-0 mt-0.5" />
             <span>{medError}</span>
           </div>
         )}
@@ -175,7 +175,7 @@ function MedicationItem({ item, index, medications, medError, updateMedication, 
             })
           }
         >
-          {item.ui.showMovement ? <EyeOff size={15} /> : <Eye size={15} />}
+          {item.ui.showMovement ? <EyeSlash size={15} /> : <Eye size={15} />}
           {item.ui.showMovement ? "Hide" : "Show"} dose adjustment rules
         </button>
 
@@ -256,7 +256,7 @@ function MedicationItem({ item, index, medications, medError, updateMedication, 
             disabled={medications.length === 1}
             title={medications.length === 1 ? "Keep at least one row" : "Remove medication"}
           >
-            <Trash2 size={15} />
+            <TrashBin size={15} />
             Remove
           </button>
         </div>

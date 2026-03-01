@@ -88,8 +88,8 @@ input[type="date"]:focus,
 select:focus,
 textarea:focus {
   outline: none;
-  border-color: #334155;
-  box-shadow: 0 0 0 3px rgba(51, 65, 85, 0.08);
+  border-color: #1d4ed8;
+  box-shadow: 0 0 0 3px rgba(29, 78, 216, 0.1);
   background: white;
 }
 

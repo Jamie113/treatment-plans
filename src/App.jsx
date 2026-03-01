@@ -1,9 +1,4 @@
-import {
-  Check,
-  ClipboardList,
-  Zap,
-  Save,
-} from "lucide-react";
+import { Check, ClipboardList, Fire, FloppyDisk } from "flowbite-react-icons/outline";
 
 import { usePlanState } from "./hooks/usePlanState";
 import { classNames } from "./utils/helpers";
@@ -69,7 +64,7 @@ export default function App() {
         <div className="mx-auto max-w-7xl px-6 py-4">
           <div className="flex items-center justify-between gap-6">
             <div className="flex items-center gap-4">
-              <div className="flex items-center justify-center w-9 h-9 bg-gray-900 rounded-xl flex-shrink-0">
+              <div className="flex items-center justify-center w-9 h-9 bg-blue-700 rounded-xl flex-shrink-0">
                 <ClipboardList size={18} className="text-white" />
               </div>
               <div>
@@ -78,7 +73,7 @@ export default function App() {
                     New Treatment Plan
                   </h1>
                   <span className="badge badge-blue gap-1.5">
-                    <Zap size={11} className="animate-pulse" />
+                    <Fire size={11} className="animate-pulse" />
                     UK · Weight Loss
                   </span>
                   <span className="badge badge-green">PoC</span>
@@ -88,7 +83,7 @@ export default function App() {
             </div>
             <div className="flex items-center gap-3">
               <button className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-200 rounded-xl hover:bg-gray-50 hover:border-gray-300 transition-colors">
-                <Save size={15} />
+                <FloppyDisk size={15} />
                 Save Draft
               </button>
               <button
@@ -97,7 +92,7 @@ export default function App() {
                 className={classNames(
                   "inline-flex items-center gap-2 px-5 py-2 text-sm font-semibold rounded-xl transition-colors",
                   validation.canCreate
-                    ? "bg-gray-900 text-white hover:bg-gray-700 shadow-sm"
+                    ? "bg-blue-700 text-white hover:bg-blue-800 shadow-sm"
                     : "bg-gray-100 text-gray-400 cursor-not-allowed"
                 )}
               >

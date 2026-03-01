@@ -1,4 +1,4 @@
-import { Settings, Calendar, AlertCircle } from "lucide-react";
+import { Cog, CalendarMonth, ExclamationCircle } from "flowbite-react-icons/outline";
 import { Card } from "../components/UIComponents";
 import { DURATION_OPTIONS, CYCLE_OPTIONS } from "../constants/catalogues";
 
@@ -10,12 +10,12 @@ const SELECT_CLS =
 
 export function PlanBasicsSection(props) {
   return (
-    <Card title="Plan details" icon={<Settings size={18} />}>
+    <Card title="Plan details" icon={<Cog size={18} />}>
       <div className="space-y-5">
         {/* Plan name */}
         <div>
           <label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-2">
-            <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-gray-900 text-white text-xs font-bold flex-shrink-0">1</span>
+            <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-blue-700 text-white text-xs font-bold flex-shrink-0">1</span>
             Plan name
           </label>
           <input
@@ -30,7 +30,7 @@ export function PlanBasicsSection(props) {
           />
           {props.validation.errors.planName && (
             <p className="text-xs text-red-500 mt-1.5 flex items-center gap-1.5">
-              <AlertCircle size={13} />
+              <ExclamationCircle size={13} />
               {props.validation.errors.planName}
             </p>
           )}
@@ -40,7 +40,7 @@ export function PlanBasicsSection(props) {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
           <div>
             <label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-2">
-              <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-gray-900 text-white text-xs font-bold flex-shrink-0">2</span>
+              <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-blue-700 text-white text-xs font-bold flex-shrink-0">2</span>
               Duration
             </label>
             {props.durationId !== "custom" ? (
@@ -70,7 +70,7 @@ export function PlanBasicsSection(props) {
 
           <div>
             <label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-2">
-              <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-gray-900 text-white text-xs font-bold flex-shrink-0">3</span>
+              <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-blue-700 text-white text-xs font-bold flex-shrink-0">3</span>
               Dispatch frequency
             </label>
             {props.cycleId !== "custom" ? (
@@ -102,11 +102,11 @@ export function PlanBasicsSection(props) {
         {/* Start date */}
         <div>
           <label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-2">
-            <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-gray-900 text-white text-xs font-bold flex-shrink-0">4</span>
+            <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-blue-700 text-white text-xs font-bold flex-shrink-0">4</span>
             Start date
           </label>
           <div className="relative">
-            <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" size={15} />
+            <CalendarMonth className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" size={15} />
             <input
               type="date"
               className={`${INPUT_CLS} pl-9`}
@@ -118,7 +118,7 @@ export function PlanBasicsSection(props) {
 
         {props.validation.errors.medications && (
           <div className="flex items-start gap-3 rounded-xl bg-amber-50 border border-amber-200 p-4 mt-2">
-            <AlertCircle size={16} className="text-amber-600 flex-shrink-0 mt-0.5" />
+            <ExclamationCircle size={16} className="text-amber-600 flex-shrink-0 mt-0.5" />
             <p className="text-sm text-amber-800 font-medium">{props.validation.errors.medications}</p>
           </div>
         )}
