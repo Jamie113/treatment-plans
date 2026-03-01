@@ -2,6 +2,7 @@ import {
   Check,
   ClipboardList,
   Zap,
+  Save,
 } from "lucide-react";
 
 import { usePlanState } from "./hooks/usePlanState";
@@ -62,44 +63,45 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-accent-blue-50">
+    <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <div className="border-b border-gray-200 bg-white/80 backdrop-blur-sm shadow-lg sticky top-0 z-50">
-        <div className="mx-auto max-w-7xl px-6 py-8">
-          <div className="flex items-start justify-between gap-6">
-            <div className="flex-1">
-              <div className="flex items-center gap-2.5 text-xs font-bold uppercase tracking-widest text-accent-blue-600 mb-3">
-                <ClipboardList size={16} />
-                Treatment Plans
+      <div className="border-b border-gray-200 bg-white sticky top-0 z-50 shadow-sm">
+        <div className="mx-auto max-w-7xl px-6 py-4">
+          <div className="flex items-center justify-between gap-6">
+            <div className="flex items-center gap-4">
+              <div className="flex items-center justify-center w-9 h-9 bg-gray-900 rounded-xl flex-shrink-0">
+                <ClipboardList size={18} className="text-white" />
               </div>
-              <h1 className="text-4xl md:text-5xl font-black text-gray-900 mb-4 leading-tight">
-                Create Your Treatment Plan
-              </h1>
-              <div className="flex flex-wrap items-center gap-3">
-                <span className="badge badge-info gap-2">
-                  <Zap size={14} className="animate-pulse" />
-                  UK • Weight Loss (PoC)
-                </span>
-                <span className="badge badge-success gap-1.5">
-                  ✓ Advanced Builder
-                </span>
+              <div>
+                <div className="flex items-center gap-2">
+                  <h1 className="text-lg font-semibold text-gray-900 leading-none">
+                    New Treatment Plan
+                  </h1>
+                  <span className="badge badge-blue gap-1.5">
+                    <Zap size={11} className="animate-pulse" />
+                    UK · Weight Loss
+                  </span>
+                  <span className="badge badge-green">PoC</span>
+                </div>
+                <p className="text-xs text-gray-500 mt-1">Configure your plan below, then create it.</p>
               </div>
             </div>
-            <div className="flex flex-col items-end gap-3">
-              <button className="btn btn-outline">
-                💾 Save Draft
+            <div className="flex items-center gap-3">
+              <button className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-200 rounded-xl hover:bg-gray-50 hover:border-gray-300 transition-colors">
+                <Save size={15} />
+                Save Draft
               </button>
               <button
                 onClick={onCreate}
                 disabled={!validation.canCreate}
                 className={classNames(
-                  "btn btn-lg",
+                  "inline-flex items-center gap-2 px-5 py-2 text-sm font-semibold rounded-xl transition-colors",
                   validation.canCreate
-                    ? "btn-primary"
-                    : "btn-disabled"
+                    ? "bg-gray-900 text-white hover:bg-gray-700 shadow-sm"
+                    : "bg-gray-100 text-gray-400 cursor-not-allowed"
                 )}
               >
-                <Check size={18} />
+                <Check size={15} />
                 {validation.canCreate ? "Create Plan" : "Complete Form"}
               </button>
             </div>
@@ -108,10 +110,10 @@ export default function App() {
       </div>
 
       {/* Body */}
-      <div className="mx-auto max-w-7xl px-6 py-16">
-        <div className="grid grid-cols-12 gap-10">
+      <div className="mx-auto max-w-7xl px-6 py-8">
+        <div className="grid grid-cols-12 gap-8">
           {/* Builder */}
-          <div className="col-span-12 lg:col-span-8 space-y-10">
+          <div className="col-span-12 lg:col-span-8 space-y-6">
             <PlanBasicsSection
               planName={planName}
               setPlanName={setPlanName}
@@ -197,5 +199,3 @@ export default function App() {
     </div>
   );
 }
-
-

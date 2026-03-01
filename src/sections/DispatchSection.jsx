@@ -7,14 +7,12 @@ export function DispatchSection(props) {
     <Card
       title="Dispatch schedule"
       subtitle="Preview the order timeline derived from duration and cycle."
-      icon={<Clock size={20} />}
+      icon={<Clock size={18} />}
     >
-      <div className="flex items-start justify-between gap-6 mb-6 pb-6 border-b border-gray-200">
-        <div className="text-sm text-gray-700">
-          <div className="flex items-center gap-2 mb-3">
-            <span className="text-gray-500">Orders (approx):</span>
-            <span className="font-bold text-lg text-gray-900">{props.ordersCount}</span>
-          </div>
+      <div className="flex items-center justify-between gap-6 mb-6 pb-6 border-b border-gray-100">
+        <div className="flex items-center gap-3">
+          <span className="text-sm text-gray-500">Approx orders:</span>
+          <span className="text-2xl font-bold text-gray-900">{props.ordersCount}</span>
         </div>
         <Toggle
           label="Allow patient rescheduling"
@@ -23,21 +21,25 @@ export function DispatchSection(props) {
         />
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-2.5">
         {props.orderPreview.map((o) => (
-          <div key={o.index} className="rounded-lg border border-gray-200 bg-gradient-to-br from-gray-50 to-white p-4 transition-all hover:border-gray-300 hover:shadow-sm">
-            <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-gray-500 mb-2">
-              <Package size={14} />
+          <div
+            key={o.index}
+            className="rounded-xl border border-gray-200 bg-white p-3.5 hover:border-gray-300 hover:shadow-sm transition-all"
+          >
+            <div className="flex items-center gap-1.5 text-xs font-medium text-gray-400 mb-1.5">
+              <Package size={12} />
               Order {o.index}
             </div>
-            <div className="text-base font-bold text-gray-900">{fmtDate(o.date)}</div>
+            <div className="text-sm font-semibold text-gray-900">{fmtDate(o.date)}</div>
           </div>
         ))}
       </div>
+
       {props.ordersCount > 12 && (
-        <div className="alert alert-info mt-4">
-          <Info size={16} />
-          <span className="text-xs">Showing first 12 orders (PoC).</span>
+        <div className="flex items-center gap-2 mt-4 px-4 py-3 bg-blue-50 border border-blue-200 rounded-xl text-xs text-blue-700 font-medium">
+          <Info size={14} className="text-blue-400 flex-shrink-0" />
+          <span>Showing first 12 orders only (PoC).</span>
         </div>
       )}
     </Card>

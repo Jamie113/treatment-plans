@@ -4,99 +4,105 @@ import { ADDON_CATALOGUE, BILLING_OPTIONS, PRESCRIPTION_FREQ } from "../constant
 
 export function SummaryPanel(props) {
   return (
-    <div className="sticky top-24 space-y-8">
+    <div className="sticky top-20 space-y-4">
       <Card
         title="Summary"
         subtitle="Live configuration preview."
-        icon={<ClipboardList size={24} />}
+        icon={<ClipboardList size={18} />}
       >
         <div className="space-y-6">
+          {/* Lifecycle stats */}
           <SummaryBlock title="Lifecycle">
-            <div className="grid grid-cols-3 gap-3">
-              <div className="rounded-xl bg-gradient-blue border border-accent-blue-200 p-4 text-center hover:shadow-md transition-all">
-                <div className="text-3xl font-black">3</div>
-                <div className="text-xs font-bold text-accent-blue-600 mt-2 uppercase">months</div>
+            <div className="grid grid-cols-3 gap-2.5">
+              <div className="rounded-xl bg-gradient-to-br from-blue-50 to-blue-100 border border-blue-200 p-3.5 text-center">
+                <div className="text-2xl font-black text-gray-900">{props.duration}</div>
+                <div className="text-xs font-semibold text-blue-600 mt-1 uppercase tracking-wide">months</div>
               </div>
-              <div className="rounded-xl bg-gradient-green border border-accent-green-100 p-4 text-center hover:shadow-md transition-all">
-                <div className="text-3xl font-black">{props.cycleDays}</div>
-                <div className="text-xs font-bold text-accent-green-600 mt-2 uppercase">days</div>
+              <div className="rounded-xl bg-gradient-to-br from-emerald-50 to-green-100 border border-green-200 p-3.5 text-center">
+                <div className="text-2xl font-black text-gray-900">{props.cycleDays}</div>
+                <div className="text-xs font-semibold text-green-600 mt-1 uppercase tracking-wide">days</div>
               </div>
-              <div className="rounded-xl bg-gradient-purple border border-accent-purple-100 p-4 text-center hover:shadow-md transition-all">
-                <div className="text-3xl font-black">{props.ordersCount}</div>
-                <div className="text-xs font-bold text-accent-purple-600 mt-2 uppercase">orders</div>
+              <div className="rounded-xl bg-gradient-to-br from-purple-50 to-violet-100 border border-purple-200 p-3.5 text-center">
+                <div className="text-2xl font-black text-gray-900">{props.ordersCount}</div>
+                <div className="text-xs font-semibold text-purple-600 mt-1 uppercase tracking-wide">orders</div>
               </div>
             </div>
           </SummaryBlock>
 
-          <div className="border-t-2 border-gray-200 pt-6">
+          {/* Medications */}
+          <div className="border-t border-gray-100 pt-5">
             <SummaryBlock title="Medications">
-              {props.selectedMedicationDetails
-                .filter((x) => x.medicationId)
-                .map((x) => (
-                  <div key={x.key} className="rounded-xl border border-gray-200 bg-gradient-to-br from-gray-50 to-white p-4 hover:shadow-lg transition-all hover:-translate-y-0.5">
-                    <div className="font-bold text-gray-900 flex items-center gap-2 mb-3">
-                      <Pill size={16} className="text-accent-blue-500" />
-                      {x.med?.name}
+              <div className="space-y-2">
+                {props.selectedMedicationDetails
+                  .filter((x) => x.medicationId)
+                  .map((x) => (
+                    <div key={x.key} className="rounded-xl border border-gray-200 bg-gray-50 p-3">
+                      <div className="font-semibold text-sm text-gray-900 flex items-center gap-2 mb-2">
+                        <Pill size={13} className="text-blue-500 flex-shrink-0" />
+                        {x.med?.name}
+                      </div>
+                      <div className="text-xs font-mono text-gray-600 bg-white rounded-lg px-2.5 py-1.5 border border-gray-100 mb-1.5 leading-relaxed">
+                        {x.variants.length
+                          ? x.variants.join(" → ")
+                          : <span className="italic text-gray-400">No variants selected</span>}
+                      </div>
+                      <div className="text-xs text-gray-400 font-medium">
+                        Rx: {PRESCRIPTION_FREQ.find((p) => p.id === x.prescription.renewalFrequency)?.label ?? "—"}
+                      </div>
                     </div>
-                    <div className="text-sm font-mono text-gray-700 bg-white rounded-lg p-2.5 border border-slate-100 mb-2">
-                      {x.variants.length
-                        ? x.variants.join(" → ")
-                        : <span className="italic text-gray-400">—</span>}
-                    </div>
-                    <div className="text-xs font-bold text-gray-600 uppercase">
-                      Rx: {PRESCRIPTION_FREQ.find((p) => p.id === x.prescription.renewalFrequency)?.label ?? "—"}
-                    </div>
+                  ))}
+                {props.selectedMedicationDetails.every((x) => !x.medicationId) && (
+                  <div className="rounded-xl border border-dashed border-gray-200 bg-gray-50 p-4 text-center text-sm text-gray-400">
+                    No medications yet
                   </div>
-                ))}
-              {props.selectedMedicationDetails.every((x) => !x.medicationId) && (
-                <div className="rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 p-4 text-center text-gray-500 italic text-sm">
-                  No medications yet
-                </div>
-              )}
+                )}
+              </div>
             </SummaryBlock>
           </div>
 
-          <div className="border-t-2 border-gray-200 pt-6">
+          {/* Add-ons */}
+          <div className="border-t border-gray-100 pt-5">
             <SummaryBlock title="Add-ons">
               {Object.entries(props.addons).filter(([, v]) => v.selected).length > 0 ? (
-                <div className="space-y-2">
+                <div className="space-y-1.5">
                   {Object.entries(props.addons)
                     .filter(([, v]) => v.selected)
                     .map(([id, v]) => (
-                      <div key={id} className="flex items-center justify-between bg-gradient-green border border-accent-green-200 rounded-lg p-3 hover:shadow-md transition-all">
-                        <span className="text-sm font-bold text-gray-900">
+                      <div key={id} className="flex items-center justify-between bg-emerald-50 border border-emerald-200 rounded-lg px-3 py-2">
+                        <span className="text-sm font-medium text-gray-900">
                           {ADDON_CATALOGUE.find((a) => a.id === id)?.name}
                         </span>
-                        <span className="text-xs font-black text-accent-green-700 uppercase bg-white px-3 py-1 rounded-full border border-accent-green-200">
+                        <span className="text-xs font-semibold text-emerald-700 uppercase bg-white px-2 py-0.5 rounded-full border border-emerald-200">
                           {v.inclusion}
                         </span>
                       </div>
                     ))}
                 </div>
               ) : (
-                <div className="rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 p-4 text-center text-gray-500 italic text-sm">
+                <div className="rounded-xl border border-dashed border-gray-200 bg-gray-50 p-4 text-center text-sm text-gray-400">
                   No add-ons selected
                 </div>
               )}
             </SummaryBlock>
           </div>
 
-          <div className="border-t-2 border-gray-200 pt-6">
+          {/* Billing */}
+          <div className="border-t border-gray-100 pt-5">
             <SummaryBlock title="Billing">
-              <div className="rounded-xl border border-gray-200 bg-gradient-to-br from-gray-50 to-white p-4 hover:shadow-md transition-all">
-                <div className="font-bold text-gray-900 mb-3 flex items-center gap-2">
-                  <DollarSign size={18} className="text-accent-orange-500" />
-                  {BILLING_OPTIONS.find((b) => b.id === props.billingId)?.title ?? "—"}
+              <div className="rounded-xl border border-gray-200 bg-gray-50 p-3">
+                <div className="font-semibold text-sm text-gray-900 mb-2.5 flex items-center gap-2">
+                  <DollarSign size={15} className="text-orange-500" />
+                  {BILLING_OPTIONS.find((b) => b.id === props.billingId)?.title ?? "Not selected"}
                 </div>
-                <div className="space-y-2 text-xs font-bold text-gray-600 bg-white rounded-lg p-3 border border-slate-100">
+                <div className="space-y-1.5 text-xs text-gray-500">
                   <div className="flex items-center gap-2">
-                    <span className={props.alignBillingWithDispatch ? "text-accent-green-600" : "text-gray-400"}>
+                    <span className={`font-bold ${props.alignBillingWithDispatch ? "text-green-600" : "text-gray-300"}`}>
                       {props.alignBillingWithDispatch ? "✓" : "○"}
                     </span>
                     <span>Align with dispatch</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <span className={props.chargeOnApproval ? "text-accent-green-600" : "text-gray-400"}>
+                    <span className={`font-bold ${props.chargeOnApproval ? "text-green-600" : "text-gray-300"}`}>
                       {props.chargeOnApproval ? "✓" : "○"}
                     </span>
                     <span>Charge on approval</span>

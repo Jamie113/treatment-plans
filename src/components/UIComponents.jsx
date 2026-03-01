@@ -1,22 +1,21 @@
-import { Settings } from "lucide-react";
-
 export function Card({ title, subtitle, icon, right, children }) {
   return (
-    <div className="bg-white rounded-lg shadow-lg border border-gray-200 overflow-hidden">
-      <div className="p-6">
-        <div className="flex items-center justify-between gap-4 mb-2">
-          <div className="flex items-center gap-3 flex-1">
-            {icon && <div className="text-gray-700 flex-shrink-0">{icon}</div>}
-            <div className="flex-1 min-w-0">
-              <h2 className="text-lg font-bold text-gray-900">{title}</h2>
+    <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+      <div className="px-6 py-5 flex items-start justify-between gap-4 border-b border-gray-100">
+        <div className="flex items-start gap-3 flex-1 min-w-0">
+          {icon && (
+            <div className="flex-shrink-0 w-9 h-9 flex items-center justify-center bg-gray-50 rounded-xl text-gray-500 mt-0.5">
+              {icon}
             </div>
+          )}
+          <div className="flex-1 min-w-0 pt-0.5">
+            <h2 className="text-base font-semibold text-gray-900 leading-snug">{title}</h2>
+            {subtitle && <p className="text-sm text-gray-500 mt-0.5">{subtitle}</p>}
           </div>
-          {right && <div className="flex-shrink-0">{right}</div>}
         </div>
-        {subtitle && <p className="text-sm text-gray-500 font-medium mb-4">{subtitle}</p>}
-        <div className="border-t border-gray-200 my-4"></div>
-        <div className="mt-6">{children}</div>
+        {right && <div className="flex-shrink-0 mt-0.5">{right}</div>}
       </div>
+      <div className="px-6 py-5">{children}</div>
     </div>
   );
 }
@@ -24,10 +23,10 @@ export function Card({ title, subtitle, icon, right, children }) {
 export function Field({ label, error, children }) {
   return (
     <div className="w-full">
-      <label className="block text-sm font-bold text-gray-900 mb-2">{label}</label>
+      <label className="block text-sm font-medium text-gray-700 mb-1.5">{label}</label>
       <div>{children}</div>
       {error && (
-        <p className="text-xs text-red-600 font-semibold mt-1.5">{error}</p>
+        <p className="text-xs text-red-600 mt-1.5">{error}</p>
       )}
     </div>
   );
@@ -35,39 +34,41 @@ export function Field({ label, error, children }) {
 
 export function RadioPill({ checked, label, onClick }) {
   return (
-    <label 
-      className={`inline-flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-lg cursor-pointer transition-all ${
-        checked 
-          ? 'bg-gray-900 text-white border border-gray-900' 
-          : 'bg-white text-gray-700 border border-gray-300 hover:border-gray-400'
-      }`}
+    <button
+      type="button"
       onClick={onClick}
+      className={`inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium rounded-lg border transition-all ${
+        checked
+          ? 'bg-gray-900 text-white border-gray-900 shadow-sm'
+          : 'bg-white text-gray-600 border-gray-200 hover:border-gray-300 hover:text-gray-900'
+      }`}
     >
-      <input 
-        type="radio" 
-        name="option" 
-        checked={checked} 
-        onChange={() => {}} 
-        className="w-4 h-4 cursor-pointer"
-      />
+      {checked && (
+        <svg className="w-3.5 h-3.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+        </svg>
+      )}
       <span>{label}</span>
-    </label>
+    </button>
   );
 }
 
 export function Toggle({ label, checked, onChange, disabled }) {
   return (
-    <div className="flex items-center justify-between">
-      <label className="text-sm font-semibold text-gray-900">{label}</label>
+    <div className="flex items-center justify-between gap-4">
+      <span className="text-sm font-medium text-gray-700 leading-snug">{label}</span>
       <button
+        type="button"
+        role="switch"
+        aria-checked={checked}
         onClick={() => !disabled && onChange(!checked)}
         disabled={disabled}
-        className={`relative inline-flex items-center h-6 w-11 rounded-full transition-colors ${
-          checked ? 'bg-gray-900' : 'bg-gray-300'
-        } ${disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
+        className={`relative flex-shrink-0 inline-flex items-center h-6 w-11 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-gray-900/20 focus:ring-offset-2 ${
+          checked ? 'bg-gray-900' : 'bg-gray-200'
+        } ${disabled ? 'opacity-40 cursor-not-allowed' : 'cursor-pointer hover:opacity-90'}`}
       >
         <span
-          className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+          className={`inline-block h-4 w-4 transform rounded-full bg-white shadow transition-transform duration-200 ${
             checked ? 'translate-x-6' : 'translate-x-1'
           }`}
         />
@@ -78,8 +79,8 @@ export function Toggle({ label, checked, onChange, disabled }) {
 
 export function SummaryBlock({ title, children }) {
   return (
-    <div className="mb-6">
-      <h3 className="font-bold text-sm uppercase mb-3 text-gray-500">{title}</h3>
+    <div className="mb-4">
+      <h3 className="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-3">{title}</h3>
       {children}
     </div>
   );
