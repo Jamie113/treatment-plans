@@ -1,16 +1,78 @@
-# React + Vite
+# Treatment Plan Builder
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Mock up for creating and managing treatment plans with configuration management, validation, and real-time preview.
 
-Currently, two official plugins are available:
+| **Framework** | React 19.2 + Vite 7.3 |
+| **Styling** | Tailwind CSS v4 + Flowbite |
+| **Icons** | lucide-react 0.575+ |
+| **State Management** | Custom `usePlanState` hook |
+| **Build Tool** | Vite (ESM, HMR enabled) |
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+```
+src/
+├── App.jsx                          # Layout orchestration
+├── components/
+│   └── UIComponents.jsx             # Reusable design system (Card, Field, Toggle, etc)
+├── constants/
+│   └── catalogues.js                # Data catalogs (medications, add-ons, billing, etc)
+├── hooks/
+│   └── usePlanState.js              # State management
+├── sections/                        # Feature sections (form areas)
+│   ├── PlanBasicsSection.jsx        
+│   ├── MedicationsSection.jsx       
+│   ├── AddOnsSection.jsx            
+│   ├── DispatchSection.jsx          
+│   ├── PrescriptionRulesSection.jsx 
+│   ├── BillingSection.jsx           
+│   ├── ReviewSection.jsx            
+│   └── SummaryPanel.jsx             
+├── utils/
+│   └── helpers.js                   # Utilities (classNames, date formatting, etc)
+├── index.css                        # Global styles & Tailwind directives
+└── main.jsx                         # React DOM entry point
+```
 
-## React Compiler
+## Getting Started
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Prerequisites
+- Node.js 18+ (LTS recommended)
+- npm or yarn
 
-## Expanding the ESLint configuration
+### Installation
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```bash
+# Clone repository
+git clone <repo-url>
+cd treatment-plan
+
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+
+```
+
+### Build for Production
+
+```bash
+npm run build
+
+# Preview production build
+npm run preview
+```
+### Available Scripts
+
+| Command | Purpose |
+|---------|---------|
+| `npm run dev` | Start dev server with HMR |
+| `npm run build` | Create optimized production build |
+| `npm run preview` | Preview production build locally |
+| `npm run lint` | Run ESLint (if configured) |
+
+## Notes
+
+- **Status**: Proof of concept
+- **Validation**: Real-time form validation with user feedback
+- **Export**: Full plan configuration available as JSON for API integration
+- **Responsive**: Optimized for mobile, tablet, and desktop screens
