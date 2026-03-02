@@ -11,10 +11,10 @@ const SELECT_CLS =
 export function PlanBasicsSection(props) {
   return (
     <Card title="Plan details" icon={<Cog size={18} />}>
-      <div className="space-y-5">
+      <div className="space-y-4">
         {/* Plan name */}
         <div>
-          <label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-2">
+          <label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-3">
             <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-blue-700 text-white text-xs font-bold flex-shrink-0">1</span>
             Plan name
           </label>
@@ -36,9 +36,9 @@ export function PlanBasicsSection(props) {
         </div>
 
         {/* Duration & Cycle */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-2">
+            <label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-3">
               <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-blue-700 text-white text-xs font-bold flex-shrink-0">2</span>
               Duration
             </label>
@@ -68,7 +68,7 @@ export function PlanBasicsSection(props) {
           </div>
 
           <div>
-            <label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-2">
+            <label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-3">
               <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-blue-700 text-white text-xs font-bold flex-shrink-0">3</span>
               Dispatch frequency
             </label>
