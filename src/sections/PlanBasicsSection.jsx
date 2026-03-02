@@ -19,11 +19,10 @@ export function PlanBasicsSection(props) {
             Plan name
           </label>
           <input
-            className={`${INPUT_CLS} ${
-              props.validation.errors.planName
+            className={`${INPUT_CLS} ${props.validation.errors.planName
                 ? "border-red-400 focus:border-red-500 focus:ring-red-200"
                 : ""
-            }`}
+              }`}
             placeholder="e.g. WL Starter Plan"
             value={props.planName}
             onChange={(e) => props.setPlanName(e.target.value)}
@@ -96,23 +95,6 @@ export function PlanBasicsSection(props) {
                 <span className="text-sm text-gray-500">days</span>
               </div>
             )}
-          </div>
-        </div>
-
-        {/* Start date */}
-        <div>
-          <label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-2">
-            <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-blue-700 text-white text-xs font-bold flex-shrink-0">4</span>
-            Start date
-          </label>
-          <div className="relative">
-            <CalendarMonth className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" size={15} />
-            <input
-              type="date"
-              className={`${INPUT_CLS} pl-9`}
-              value={props.startDate}
-              onChange={(e) => props.setStartDate(e.target.value)}
-            />
           </div>
         </div>
 
