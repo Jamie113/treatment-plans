@@ -6,8 +6,9 @@ import {
   CYCLE_OPTIONS,
   PRESCRIPTION_FREQ,
   BILLING_OPTIONS,
+  INCLUSION_CYCLE_OPTIONS,
 } from "../constants/catalogues";
-import { addDays, newMedicationItem } from "../utils/helpers";
+import { addDays, newMedicationItem, newInclusionItem } from "../utils/helpers";
 
 export function usePlanState() {
   const [planName, setPlanName] = useState("");
@@ -27,6 +28,8 @@ export function usePlanState() {
   const [medications, setMedications] = useState([newMedicationItem()]);
   const [addons, setAddons] = useState({});
   const [allowPatientRescheduling, setAllowPatientRescheduling] = useState(true);
+
+  const [inclusions, setInclusions] = useState([]);
 
   const [billingId, setBillingId] = useState("monthly");
   const [alignBillingWithDispatch, setAlignBillingWithDispatch] = useState(true);
@@ -114,6 +117,34 @@ export function usePlanState() {
     );
   }
 
+  // Inclusions handlers
+  function addInclusion() {
+    setInclusions((prev) => [...prev, newInclusionItem()]);
+  }
+
+  function removeInclusion(key) {
+    setInclusions((prev) => prev.filter((i) => i.key !== key));
+  }
+
+  function updateInclusion(key, patch) {
+    setInclusions((prev) =>
+      prev.map((i) => (i.key === key ? { ...i, ...patch } : i))
+    );
+  }
+
+  function toggleInclusionOrder(key, orderNum) {
+    setInclusions((prev) =>
+      prev.map((i) => {
+        if (i.key !== key) return i;
+        const exists = i.orderNumbers.includes(orderNum);
+        const next = exists
+          ? i.orderNumbers.filter((n) => n !== orderNum)
+          : [...i.orderNumbers, orderNum].sort((a, b) => a - b);
+        return { ...i, orderNumbers: next };
+      })
+    );
+  }
+
   function toggleAddon(addonId, selected) {
     setAddons((prev) => ({
       ...prev,
@@ -157,6 +188,18 @@ export function usePlanState() {
           prescription_rules: m.prescription,
         })),
       addons: selectedAddons,
+      inclusions: inclusions
+        .filter((i) => i.itemId)
+        .map((i) => {
+          const cycleOption = INCLUSION_CYCLE_OPTIONS.find((o) => o.id === i.cycleId);
+          return {
+            item_id: i.itemId,
+            schedule_type: i.scheduleType,
+            ...(i.scheduleType === "specific_orders"
+              ? { order_numbers: i.orderNumbers }
+              : { cycle_days: i.cycleId === "custom" ? i.customCycleDays : cycleOption?.days }),
+          };
+        }),
       billing_plan: {
         type: billingId,
         align_with_dispatch: alignBillingWithDispatch,
@@ -172,6 +215,7 @@ export function usePlanState() {
     allowPatientRescheduling,
     medications,
     addons,
+    inclusions,
     billingId,
     alignBillingWithDispatch,
     chargeOnApproval,
@@ -179,6 +223,8 @@ export function usePlanState() {
 
   return {
     // State
+    inclusions,
+    setInclusions,
     planName,
     setPlanName,
     durationId,
@@ -221,5 +267,9 @@ export function usePlanState() {
     moveVariant,
     toggleAddon,
     setAddonInclusion,
+    addInclusion,
+    removeInclusion,
+    updateInclusion,
+    toggleInclusionOrder,
   };
 }

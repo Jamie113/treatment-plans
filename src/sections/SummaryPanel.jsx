@@ -1,6 +1,6 @@
-import { ClipboardList, DropletBottleAlt, Dollar } from "flowbite-react-icons/outline";
+import { ClipboardList, DropletBottleAlt, Dollar, CalendarPlus } from "flowbite-react-icons/outline";
 import { Card, SummaryBlock } from "../components/UIComponents";
-import { ADDON_CATALOGUE, BILLING_OPTIONS, PRESCRIPTION_FREQ } from "../constants/catalogues";
+import { ADDON_CATALOGUE, BILLING_OPTIONS, PRESCRIPTION_FREQ, INCLUSION_CATALOGUE, INCLUSION_CYCLE_OPTIONS } from "../constants/catalogues";
 
 export function SummaryPanel(props) {
   return (
@@ -81,6 +81,36 @@ export function SummaryPanel(props) {
               ) : (
                 <div className="rounded-xl border border-dashed border-gray-200 bg-gray-50 p-4 text-center text-sm text-gray-400">
                   No add-ons selected
+                </div>
+              )}
+            </SummaryBlock>
+          </div>
+
+          {/* Inclusions */}
+          <div className="border-t border-gray-100 pt-5">
+            <SummaryBlock title="Inclusions">
+              {props.inclusions?.filter((i) => i.itemId).length > 0 ? (
+                <div className="space-y-1.5">
+                  {props.inclusions.filter((i) => i.itemId).map((i) => {
+                    const item = INCLUSION_CATALOGUE.find((c) => c.id === i.itemId);
+                    const cycleOpt = INCLUSION_CYCLE_OPTIONS.find((o) => o.id === i.cycleId);
+                    return (
+                      <div key={i.key} className="flex items-center justify-between bg-blue-50 border border-blue-200 rounded-lg px-3 py-2 gap-2">
+                        <span className="text-sm font-medium text-gray-900 truncate">{item?.name}</span>
+                        <span className="text-xs font-semibold text-blue-700 uppercase bg-white px-2 py-0.5 rounded-full border border-blue-200 flex-shrink-0">
+                          {i.scheduleType === "specific_orders"
+                            ? `Order${i.orderNumbers.length > 1 ? "s" : ""} ${i.orderNumbers.join(", ")}`
+                            : i.cycleId === "custom"
+                              ? `Every ${i.customCycleDays}d`
+                              : cycleOpt?.label}
+                        </span>
+                      </div>
+                    );
+                  })}
+                </div>
+              ) : (
+                <div className="rounded-xl border border-dashed border-gray-200 bg-gray-50 p-4 text-center text-sm text-gray-400">
+                  No inclusions added
                 </div>
               )}
             </SummaryBlock>

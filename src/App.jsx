@@ -8,6 +8,7 @@ import { AddOnsSection } from "./sections/AddOnsSection";
 import { DispatchSection } from "./sections/DispatchSection";
 import { PrescriptionRulesSection } from "./sections/PrescriptionRulesSection";
 import { BillingSection } from "./sections/BillingSection";
+import { InclusionsSection } from "./sections/InclusionsSection";
 import { ReviewSection } from "./sections/ReviewSection";
 import { SummaryPanel } from "./sections/SummaryPanel";
 
@@ -51,6 +52,11 @@ export default function App() {
     moveVariant,
     toggleAddon,
     setAddonInclusion,
+    inclusions,
+    addInclusion,
+    removeInclusion,
+    updateInclusion,
+    toggleInclusionOrder,
   } = state;
 
   function onCreate() {
@@ -143,6 +149,16 @@ export default function App() {
               setAddonInclusion={setAddonInclusion}
             />
 
+            <InclusionsSection
+              inclusions={inclusions}
+              ordersCount={ordersCount}
+              duration={duration}
+              addInclusion={addInclusion}
+              removeInclusion={removeInclusion}
+              updateInclusion={updateInclusion}
+              toggleInclusionOrder={toggleInclusionOrder}
+            />
+
             <DispatchSection
               ordersCount={ordersCount}
               orderPreview={orderPreview}
@@ -167,6 +183,7 @@ export default function App() {
             <ReviewSection
               medications={medications}
               addons={addons}
+              inclusions={inclusions}
               ordersCount={ordersCount}
               billingId={billingId}
               validation={validation}
@@ -182,6 +199,7 @@ export default function App() {
               ordersCount={ordersCount}
               selectedMedicationDetails={selectedMedicationDetails}
               addons={addons}
+              inclusions={inclusions}
               billingId={billingId}
               alignBillingWithDispatch={alignBillingWithDispatch}
               chargeOnApproval={chargeOnApproval}

@@ -47,6 +47,24 @@ export const PRESCRIPTION_FREQ = [
   { id: "custom", label: "Custom" },
 ];
 
+export const INCLUSION_CATALOGUE = [
+  { id: "blood_test",         name: "Blood test",           description: "HbA1c / lipid panel" },
+  { id: "pharmacist_review",  name: "Pharmacist review",    description: "Clinical check-in call" },
+  { id: "weight_check_kit",   name: "Weight check kit",     description: "Scales & tape measure" },
+  { id: "welcome_pack",       name: "Welcome pack",         description: "Onboarding materials" },
+  { id: "sharps_disposal",    name: "Sharps disposal kit",  description: "Safe needle disposal" },
+  { id: "nutritional_guide",  name: "Nutritional guide",    description: "Diet & lifestyle advice" },
+  { id: "progress_report",    name: "Progress report",      description: "Outcome summary" },
+];
+
+export const INCLUSION_CYCLE_OPTIONS = [
+  { id: "2w",  label: "Every 2 weeks",   days: 14 },
+  { id: "4w",  label: "Every 4 weeks",   days: 28 },
+  { id: "3m",  label: "Every 3 months",  days: 90 },
+  { id: "6m",  label: "Every 6 months",  days: 180 },
+  { id: "custom", label: "Custom",       days: null },
+];
+
 export const BILLING_OPTIONS = [
   { id: "upfront", title: "Pay Upfront", subtitle: "One payment for full duration" },
   { id: "monthly", title: "Pay Monthly", subtitle: "Charge every month" },

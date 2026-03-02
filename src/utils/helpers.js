@@ -12,6 +12,17 @@ export function fmtDate(date) {
   return new Intl.DateTimeFormat("en-GB", { day: "2-digit", month: "short" }).format(date);
 }
 
+export function newInclusionItem() {
+  return {
+    key: crypto.randomUUID(),
+    itemId: "",
+    scheduleType: "specific_orders", // "specific_orders" | "recurring_cycle"
+    orderNumbers: [1],               // used when scheduleType === "specific_orders"
+    cycleId: "3m",                   // used when scheduleType === "recurring_cycle"
+    customCycleDays: 90,
+  };
+}
+
 export function newMedicationItem() {
   return {
     key: crypto.randomUUID(),

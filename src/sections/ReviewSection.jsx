@@ -36,6 +36,12 @@ export function ReviewSection(props) {
           </li>
           <li className="flex items-center gap-3 text-sm text-gray-700">
             <span className="inline-flex items-center justify-center w-6 h-6 bg-blue-700 text-white text-xs rounded-full font-bold flex-shrink-0">
+              {(props.inclusions ?? []).filter((i) => i.itemId).length}
+            </span>
+            inclusion(s)
+          </li>
+          <li className="flex items-center gap-3 text-sm text-gray-700">
+            <span className="inline-flex items-center justify-center w-6 h-6 bg-blue-700 text-white text-xs rounded-full font-bold flex-shrink-0">
               {props.ordersCount}
             </span>
             orders (approx)
