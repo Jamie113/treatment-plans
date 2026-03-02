@@ -1,12 +1,7 @@
-import { Cog, CalendarMonth, ExclamationCircle } from "flowbite-react-icons/outline";
+import { Cog, ExclamationCircle } from "flowbite-react-icons/outline";
+import { TextInput, Select } from "flowbite-react";
 import { Card } from "../components/UIComponents";
 import { DURATION_OPTIONS, CYCLE_OPTIONS } from "../constants/catalogues";
-
-const INPUT_CLS =
-  "w-full px-3 py-2 text-sm text-gray-900 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-gray-900/10 focus:border-gray-500 transition-colors";
-
-const SELECT_CLS =
-  "w-full px-3 py-2 text-sm text-gray-900 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-gray-900/10 focus:border-gray-500 transition-colors cursor-pointer";
 
 export function PlanBasicsSection(props) {
   return (
@@ -18,14 +13,12 @@ export function PlanBasicsSection(props) {
             <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-blue-700 text-white text-xs font-bold flex-shrink-0">1</span>
             Plan name
           </label>
-          <input
-            className={`${INPUT_CLS} ${props.validation.errors.planName
-                ? "border-red-400 focus:border-red-500 focus:ring-red-200"
-                : ""
-              }`}
+          <TextInput
+            sizing="sm"
             placeholder="e.g. WL Starter Plan"
             value={props.planName}
             onChange={(e) => props.setPlanName(e.target.value)}
+            color={props.validation.errors.planName ? "failure" : "gray"}
           />
           {props.validation.errors.planName && (
             <p className="text-xs text-red-500 mt-1.5 flex items-center gap-1.5">
@@ -43,22 +36,23 @@ export function PlanBasicsSection(props) {
               Duration
             </label>
             {props.durationId !== "custom" ? (
-              <select
+              <Select
+                sizing="sm"
                 value={props.durationId}
                 onChange={(e) => props.setDurationId(e.target.value)}
-                className={SELECT_CLS}
               >
                 <option value="">Choose duration</option>
                 {DURATION_OPTIONS.map((d) => (
                   <option key={d.id} value={d.id}>{d.label}</option>
                 ))}
-              </select>
+              </Select>
             ) : (
               <div className="flex items-center gap-2">
-                <input
+                <TextInput
                   type="number"
                   min={1}
-                  className="w-20 px-3 py-2 text-sm text-center text-gray-900 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-gray-900/10 transition-colors"
+                  sizing="sm"
+                  className="w-20"
                   value={props.customDurationMonths}
                   onChange={(e) => props.setCustomDurationMonths(Number(e.target.value || 1))}
                 />
@@ -73,22 +67,23 @@ export function PlanBasicsSection(props) {
               Dispatch frequency
             </label>
             {props.cycleId !== "custom" ? (
-              <select
+              <Select
+                sizing="sm"
                 value={props.cycleId}
                 onChange={(e) => props.setCycleId(e.target.value)}
-                className={SELECT_CLS}
               >
                 <option value="">Choose cycle</option>
                 {CYCLE_OPTIONS.map((c) => (
                   <option key={c.id} value={c.id}>{c.label}</option>
                 ))}
-              </select>
+              </Select>
             ) : (
               <div className="flex items-center gap-2">
-                <input
+                <TextInput
                   type="number"
                   min={7}
-                  className="w-20 px-3 py-2 text-sm text-center text-gray-900 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-gray-900/10 transition-colors"
+                  sizing="sm"
+                  className="w-20"
                   value={props.customCycleDays}
                   onChange={(e) => props.setCustomCycleDays(Number(e.target.value || 7))}
                 />

@@ -5,7 +5,7 @@ export default {
   content: [
     "./index.html",
     "./src/**/*.{js,jsx,ts,tsx}",
-    'node_modules/flowbite-react/lib/**/*.js',
+    'node_modules/flowbite-react/dist/**/*.js',
   ],
   theme: {
     extend: {
