@@ -1,4 +1,4 @@
-import { Check, ClipboardList, Fire, FloppyDisk } from "flowbite-react-icons/outline";
+import { Check, ClipboardList, FloppyDisk } from "flowbite-react-icons/outline";
 
 import { usePlanState } from "./hooks/usePlanState";
 import { classNames } from "./utils/helpers";
@@ -78,11 +78,6 @@ export default function App() {
                   <h1 className="text-lg font-semibold text-gray-900 leading-none">
                     New Treatment Plan
                   </h1>
-                  <span className="badge badge-blue gap-1.5">
-                    <Fire size={11} className="animate-pulse" />
-                    UK · Weight Loss
-                  </span>
-                  <span className="badge badge-green">PoC</span>
                 </div>
                 <p className="text-xs text-gray-500 mt-1">Configure your plan below, then create it.</p>
               </div>
