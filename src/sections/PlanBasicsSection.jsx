@@ -1,7 +1,7 @@
 import { Cog, ExclamationCircle } from "flowbite-react-icons/outline";
 import { TextInput, Select } from "flowbite-react";
 import { Card } from "../components/UIComponents";
-import { DURATION_OPTIONS, CYCLE_OPTIONS } from "../constants/catalogues";
+import { DURATION_OPTIONS } from "../constants/catalogues";
 
 export function PlanBasicsSection(props) {
   return (
@@ -28,69 +28,36 @@ export function PlanBasicsSection(props) {
           )}
         </div>
 
-        {/* Duration & Cycle */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div>
-            <label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-3">
-              <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-blue-700 text-white text-xs font-bold flex-shrink-0">2</span>
-              Duration
-            </label>
-            {props.durationId !== "custom" ? (
-              <Select
+        {/* Duration */}
+        <div>
+          <label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-3">
+            <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-blue-700 text-white text-xs font-bold flex-shrink-0">2</span>
+            Duration
+          </label>
+          {props.durationId !== "custom" ? (
+            <Select
+              sizing="sm"
+              value={props.durationId}
+              onChange={(e) => props.setDurationId(e.target.value)}
+            >
+              <option value="">Choose duration</option>
+              {DURATION_OPTIONS.map((d) => (
+                <option key={d.id} value={d.id}>{d.label}</option>
+              ))}
+            </Select>
+          ) : (
+            <div className="flex items-center gap-2">
+              <TextInput
+                type="number"
+                min={1}
                 sizing="sm"
-                value={props.durationId}
-                onChange={(e) => props.setDurationId(e.target.value)}
-              >
-                <option value="">Choose duration</option>
-                {DURATION_OPTIONS.map((d) => (
-                  <option key={d.id} value={d.id}>{d.label}</option>
-                ))}
-              </Select>
-            ) : (
-              <div className="flex items-center gap-2">
-                <TextInput
-                  type="number"
-                  min={1}
-                  sizing="sm"
-                  className="w-20"
-                  value={props.customDurationMonths}
-                  onChange={(e) => props.setCustomDurationMonths(Number(e.target.value || 1))}
-                />
-                <span className="text-sm text-gray-500">months</span>
-              </div>
-            )}
-          </div>
-
-          <div>
-            <label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-3">
-              <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-blue-700 text-white text-xs font-bold flex-shrink-0">3</span>
-              Dispatch frequency
-            </label>
-            {props.cycleId !== "custom" ? (
-              <Select
-                sizing="sm"
-                value={props.cycleId}
-                onChange={(e) => props.setCycleId(e.target.value)}
-              >
-                <option value="">Choose cycle</option>
-                {CYCLE_OPTIONS.map((c) => (
-                  <option key={c.id} value={c.id}>{c.label}</option>
-                ))}
-              </Select>
-            ) : (
-              <div className="flex items-center gap-2">
-                <TextInput
-                  type="number"
-                  min={7}
-                  sizing="sm"
-                  className="w-20"
-                  value={props.customCycleDays}
-                  onChange={(e) => props.setCustomCycleDays(Number(e.target.value || 7))}
-                />
-                <span className="text-sm text-gray-500">days</span>
-              </div>
-            )}
-          </div>
+                className="w-20"
+                value={props.customDurationMonths}
+                onChange={(e) => props.setCustomDurationMonths(Number(e.target.value || 1))}
+              />
+              <span className="text-sm text-gray-500">months</span>
+            </div>
+          )}
         </div>
 
         {props.validation.errors.medications && (

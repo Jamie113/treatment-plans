@@ -34,6 +34,10 @@ export default function App() {
     upsells,
     allowPatientRescheduling,
     setAllowPatientRescheduling,
+    rescheduleDaysEarlier,
+    setRescheduleDaysEarlier,
+    rescheduleDaysLater,
+    setRescheduleDaysLater,
     billingId,
     setBillingId,
     alignBillingWithDispatch,
@@ -121,10 +125,6 @@ export default function App() {
               setDurationId={setDurationId}
               customDurationMonths={customDurationMonths}
               setCustomDurationMonths={setCustomDurationMonths}
-              cycleId={cycleId}
-              setCycleId={setCycleId}
-              customCycleDays={customCycleDays}
-              setCustomCycleDays={setCustomCycleDays}
               startDate={startDate}
               setStartDate={setStartDate}
               validation={validation}
@@ -161,10 +161,17 @@ export default function App() {
             />
 
             <DispatchSection
+              cycleId={cycleId}
+              setCycleId={setCycleId}
+              customCycleDays={customCycleDays}
+              setCustomCycleDays={setCustomCycleDays}
               ordersCount={ordersCount}
-              orderPreview={orderPreview}
               allowPatientRescheduling={allowPatientRescheduling}
               setAllowPatientRescheduling={setAllowPatientRescheduling}
+              rescheduleDaysEarlier={rescheduleDaysEarlier}
+              setRescheduleDaysEarlier={setRescheduleDaysEarlier}
+              rescheduleDaysLater={rescheduleDaysLater}
+              setRescheduleDaysLater={setRescheduleDaysLater}
             />
 
             <PrescriptionRulesSection

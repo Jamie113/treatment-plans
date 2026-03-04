@@ -28,6 +28,8 @@ export function usePlanState() {
   const [medications, setMedications] = useState([newMedicationItem()]);
   const [upsells, setUpsells] = useState([]);
   const [allowPatientRescheduling, setAllowPatientRescheduling] = useState(true);
+  const [rescheduleDaysEarlier, setRescheduleDaysEarlier] = useState(5);
+  const [rescheduleDaysLater, setRescheduleDaysLater] = useState(10);
 
   const [inclusions, setInclusions] = useState([]);
 
@@ -181,6 +183,12 @@ export function usePlanState() {
       start_behaviour: startBehaviour,
       start_date: startDate,
       allow_patient_rescheduling: allowPatientRescheduling,
+      ...(allowPatientRescheduling && {
+        reschedule_window: {
+          days_earlier: rescheduleDaysEarlier,
+          days_later: rescheduleDaysLater,
+        },
+      }),
       medications: medications
         .filter((m) => m.medicationId)
         .map((m) => ({
@@ -233,6 +241,8 @@ export function usePlanState() {
     startBehaviour,
     startDate,
     allowPatientRescheduling,
+    rescheduleDaysEarlier,
+    rescheduleDaysLater,
     medications,
     upsells,
     inclusions,
@@ -265,6 +275,10 @@ export function usePlanState() {
     setMedications,
     allowPatientRescheduling,
     setAllowPatientRescheduling,
+    rescheduleDaysEarlier,
+    setRescheduleDaysEarlier,
+    rescheduleDaysLater,
+    setRescheduleDaysLater,
     billingId,
     setBillingId,
     alignBillingWithDispatch,
