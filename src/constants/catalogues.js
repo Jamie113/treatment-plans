@@ -20,10 +20,15 @@ export const MEDICATION_CATALOGUE = [
 ];
 
 export const ADDON_CATALOGUE = [
-  { id: "anti_nausea", name: "Anti-nausea medication" },
-  { id: "alcohol_wipes", name: "Alcohol wipes" },
-  { id: "needles", name: "Needles" },
-  { id: "constipation_support", name: "Constipation support" },
+  { id: "anti_nausea",          name: "Anti-nausea medication",  category: "medication", price: 12.99 },
+  { id: "constipation_support", name: "Constipation support",    category: "medication", price: 14.99 },
+  { id: "alcohol_wipes",        name: "Alcohol wipes",           category: "supply",     price: 3.99  },
+  { id: "needles",              name: "Needles",                  category: "supply",     price: 5.99  },
+  { id: "vitamin_b12",          name: "Vitamin B12",             category: "vitamin",    price: 8.99  },
+  { id: "vitamin_d3",           name: "Vitamin D3",              category: "vitamin",    price: 9.99  },
+  { id: "multivitamin",         name: "Multivitamin complex",    category: "vitamin",    price: 15.99 },
+  { id: "omega_3",              name: "Omega-3 fish oil",        category: "vitamin",    price: 11.99 },
+  { id: "protein_shake",        name: "Protein shake (30 srv.)", category: "supplement", price: 24.99 },
 ];
 
 export const DURATION_OPTIONS = [

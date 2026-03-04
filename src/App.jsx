@@ -31,7 +31,7 @@ export default function App() {
     setStartDate,
     medications,
     setMedications,
-    addons,
+    upsells,
     allowPatientRescheduling,
     setAllowPatientRescheduling,
     billingId,
@@ -50,8 +50,10 @@ export default function App() {
     updateMedication,
     removeMedication,
     moveVariant,
-    toggleAddon,
-    setAddonInclusion,
+    addUpsell,
+    removeUpsell,
+    updateUpsell,
+    toggleUpsellOrder,
     inclusions,
     addInclusion,
     removeInclusion,
@@ -139,9 +141,13 @@ export default function App() {
             />
 
             <AddOnsSection
-              addons={addons}
-              toggleAddon={toggleAddon}
-              setAddonInclusion={setAddonInclusion}
+              upsells={upsells}
+              ordersCount={ordersCount}
+              duration={duration}
+              addUpsell={addUpsell}
+              removeUpsell={removeUpsell}
+              updateUpsell={updateUpsell}
+              toggleUpsellOrder={toggleUpsellOrder}
             />
 
             <InclusionsSection
@@ -177,7 +183,7 @@ export default function App() {
 
             <ReviewSection
               medications={medications}
-              addons={addons}
+              upsells={upsells}
               inclusions={inclusions}
               ordersCount={ordersCount}
               billingId={billingId}
@@ -193,7 +199,7 @@ export default function App() {
               cycleDays={cycleDays}
               ordersCount={ordersCount}
               selectedMedicationDetails={selectedMedicationDetails}
-              addons={addons}
+              upsells={upsells}
               inclusions={inclusions}
               billingId={billingId}
               alignBillingWithDispatch={alignBillingWithDispatch}

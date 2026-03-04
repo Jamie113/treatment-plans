@@ -8,7 +8,7 @@ import {
   BILLING_OPTIONS,
   INCLUSION_CYCLE_OPTIONS,
 } from "../constants/catalogues";
-import { addDays, newMedicationItem, newInclusionItem } from "../utils/helpers";
+import { addDays, newMedicationItem, newInclusionItem, newUpsellItem } from "../utils/helpers";
 
 export function usePlanState() {
   const [planName, setPlanName] = useState("");
@@ -26,7 +26,7 @@ export function usePlanState() {
   });
 
   const [medications, setMedications] = useState([newMedicationItem()]);
-  const [addons, setAddons] = useState({});
+  const [upsells, setUpsells] = useState([]);
   const [allowPatientRescheduling, setAllowPatientRescheduling] = useState(true);
 
   const [inclusions, setInclusions] = useState([]);
@@ -91,7 +91,7 @@ export function usePlanState() {
     return { errors, medicationVariantErrors, canCreate };
   }, [planName, medications, billingId]);
 
-  // Handlers
+  // Medication handlers
   function updateMedication(key, patch) {
     setMedications((prev) =>
       prev.map((m) => (m.key === key ? { ...m, ...patch } : m))
@@ -145,31 +145,35 @@ export function usePlanState() {
     );
   }
 
-  function toggleAddon(addonId, selected) {
-    setAddons((prev) => ({
-      ...prev,
-      [addonId]: {
-        selected,
-        inclusion: prev[addonId]?.inclusion ?? "optional",
-      },
-    }));
+  // Upsell handlers
+  function addUpsell() {
+    setUpsells((prev) => [...prev, newUpsellItem()]);
   }
 
-  function setAddonInclusion(addonId, inclusion) {
-    setAddons((prev) => ({
-      ...prev,
-      [addonId]: {
-        selected: prev[addonId]?.selected ?? false,
-        inclusion,
-      },
-    }));
+  function removeUpsell(key) {
+    setUpsells((prev) => prev.filter((u) => u.key !== key));
+  }
+
+  function updateUpsell(key, patch) {
+    setUpsells((prev) =>
+      prev.map((u) => (u.key === key ? { ...u, ...patch } : u))
+    );
+  }
+
+  function toggleUpsellOrder(key, orderNum) {
+    setUpsells((prev) =>
+      prev.map((u) => {
+        if (u.key !== key) return u;
+        const exists = u.orderNumbers.includes(orderNum);
+        const next = exists
+          ? u.orderNumbers.filter((n) => n !== orderNum)
+          : [...u.orderNumbers, orderNum].sort((a, b) => a - b);
+        return { ...u, orderNumbers: next };
+      })
+    );
   }
 
   const planConfigPreview = useMemo(() => {
-    const selectedAddons = Object.entries(addons)
-      .filter(([, v]) => v.selected)
-      .map(([id, v]) => ({ id, inclusion: v.inclusion }));
-
     return {
       name: planName,
       duration_months: duration,
@@ -187,7 +191,23 @@ export function usePlanState() {
           packaging: m.packaging,
           prescription_rules: m.prescription,
         })),
-      addons: selectedAddons,
+      upsells: upsells
+        .filter((u) => u.itemId)
+        .map((u) => {
+          const catalogueItem = ADDON_CATALOGUE.find((a) => a.id === u.itemId);
+          const cycleOption = INCLUSION_CYCLE_OPTIONS.find((o) => o.id === u.cycleId);
+          return {
+            item_id: u.itemId,
+            schedule_type: u.scheduleType,
+            ...(u.scheduleType === "specific_orders"
+              ? { order_numbers: u.orderNumbers }
+              : { cycle_days: u.cycleId === "custom" ? u.customCycleDays : cycleOption?.days }),
+            pricing: {
+              type: u.pricingType,
+              price: u.pricingType === "custom" ? u.customPrice : (catalogueItem?.price ?? 0),
+            },
+          };
+        }),
       inclusions: inclusions
         .filter((i) => i.itemId)
         .map((i) => {
@@ -214,7 +234,7 @@ export function usePlanState() {
     startDate,
     allowPatientRescheduling,
     medications,
-    addons,
+    upsells,
     inclusions,
     billingId,
     alignBillingWithDispatch,
@@ -225,6 +245,8 @@ export function usePlanState() {
     // State
     inclusions,
     setInclusions,
+    upsells,
+    setUpsells,
     planName,
     setPlanName,
     durationId,
@@ -241,8 +263,6 @@ export function usePlanState() {
     setStartDate,
     medications,
     setMedications,
-    addons,
-    setAddons,
     allowPatientRescheduling,
     setAllowPatientRescheduling,
     billingId,
@@ -265,8 +285,10 @@ export function usePlanState() {
     updateMedication,
     removeMedication,
     moveVariant,
-    toggleAddon,
-    setAddonInclusion,
+    addUpsell,
+    removeUpsell,
+    updateUpsell,
+    toggleUpsellOrder,
     addInclusion,
     removeInclusion,
     updateInclusion,

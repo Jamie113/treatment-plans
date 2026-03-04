@@ -2,6 +2,10 @@ import { ClipboardList, DropletBottleAlt, Dollar, CalendarPlus } from "flowbite-
 import { Card, SummaryBlock } from "../components/UIComponents";
 import { ADDON_CATALOGUE, BILLING_OPTIONS, PRESCRIPTION_FREQ, INCLUSION_CATALOGUE, INCLUSION_CYCLE_OPTIONS } from "../constants/catalogues";
 
+function formatPrice(price) {
+  return `£${price.toFixed(2)}`;
+}
+
 export function SummaryPanel(props) {
   return (
     <div className="sticky top-20 space-y-4">
@@ -60,27 +64,27 @@ export function SummaryPanel(props) {
             </SummaryBlock>
           </div>
 
-          {/* Add-ons */}
+          {/* Upsells */}
           <div className="border-t border-gray-100 pt-5">
-            <SummaryBlock title="Add-ons">
-              {Object.entries(props.addons).filter(([, v]) => v.selected).length > 0 ? (
+            <SummaryBlock title="Upsells">
+              {(props.upsells ?? []).filter((u) => u.itemId).length > 0 ? (
                 <div className="space-y-1.5">
-                  {Object.entries(props.addons)
-                    .filter(([, v]) => v.selected)
-                    .map(([id, v]) => (
-                      <div key={id} className="flex items-center justify-between bg-emerald-50 border border-emerald-200 rounded-lg px-3 py-2">
-                        <span className="text-sm font-medium text-gray-900">
-                          {ADDON_CATALOGUE.find((a) => a.id === id)?.name}
-                        </span>
-                        <span className="text-xs font-semibold text-emerald-700 uppercase bg-white px-2 py-0.5 rounded-full border border-emerald-200">
-                          {v.inclusion}
+                  {(props.upsells ?? []).filter((u) => u.itemId).map((u) => {
+                    const catalogueItem = ADDON_CATALOGUE.find((a) => a.id === u.itemId);
+                    const price = u.pricingType === "custom" ? u.customPrice : (catalogueItem?.price ?? 0);
+                    return (
+                      <div key={u.key} className="flex items-center justify-between bg-emerald-50 border border-emerald-200 rounded-lg px-3 py-2 gap-2">
+                        <span className="text-sm font-medium text-gray-900 truncate">{catalogueItem?.name}</span>
+                        <span className="text-xs font-semibold text-emerald-700 bg-white px-2 py-0.5 rounded-full border border-emerald-200 flex-shrink-0">
+                          £{price.toFixed(2)}
                         </span>
                       </div>
-                    ))}
+                    );
+                  })}
                 </div>
               ) : (
                 <div className="rounded-xl border border-dashed border-gray-200 bg-gray-50 p-4 text-center text-sm text-gray-400">
-                  No add-ons selected
+                  No upsells added
                 </div>
               )}
             </SummaryBlock>

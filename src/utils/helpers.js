@@ -12,6 +12,19 @@ export function fmtDate(date) {
   return new Intl.DateTimeFormat("en-GB", { day: "2-digit", month: "short" }).format(date);
 }
 
+export function newUpsellItem() {
+  return {
+    key: crypto.randomUUID(),
+    itemId: "",
+    scheduleType: "specific_orders", // "specific_orders" | "recurring_cycle"
+    orderNumbers: [1],
+    cycleId: "3m",
+    customCycleDays: 90,
+    pricingType: "catalogue",        // "catalogue" | "custom"
+    customPrice: 0,
+  };
+}
+
 export function newInclusionItem() {
   return {
     key: crypto.randomUUID(),

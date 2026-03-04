@@ -30,9 +30,9 @@ export function ReviewSection(props) {
           </li>
           <li className="flex items-center gap-3 text-sm text-gray-700">
             <span className="inline-flex items-center justify-center w-6 h-6 bg-blue-700 text-white text-xs rounded-full font-bold flex-shrink-0">
-              {Object.entries(props.addons).filter(([, v]) => v.selected).length}
+              {(props.upsells ?? []).filter((u) => u.itemId).length}
             </span>
-            add-on(s)
+            upsell(s)
           </li>
           <li className="flex items-center gap-3 text-sm text-gray-700">
             <span className="inline-flex items-center justify-center w-6 h-6 bg-blue-700 text-white text-xs rounded-full font-bold flex-shrink-0">
