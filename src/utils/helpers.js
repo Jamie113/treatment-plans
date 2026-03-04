@@ -12,6 +12,16 @@ export function fmtDate(date) {
   return new Intl.DateTimeFormat("en-GB", { day: "2-digit", month: "short" }).format(date);
 }
 
+export function newOfferItem() {
+  return {
+    key: crypto.randomUUID(),
+    offerType: "basket_value", // "basket_value" | "fixed_price"
+    price: 0,
+    billingCycleId: "monthly",
+    customBillingDays: 30,
+  };
+}
+
 export function newUpsellItem() {
   return {
     key: crypto.randomUUID(),
@@ -40,12 +50,8 @@ export function newMedicationItem() {
   return {
     key: crypto.randomUUID(),
     medicationId: "",
-    variants: [],
-    movement: {
-      allowChange: true,
-      maxIncreaseSteps: 1,
-      allowDecrease: true,
-    },
+    titrationEnabled: false,
+    titrationPathId: "",
     quantityPerOrder: 1,
     packaging: "Standard",
     prescription: {
@@ -53,6 +59,5 @@ export function newMedicationItem() {
       renewalFrequency: "every_3_months",
       approvalRequiredOnDoseChange: true,
     },
-    ui: { showMovement: false },
   };
 }

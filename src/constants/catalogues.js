@@ -53,13 +53,10 @@ export const PRESCRIPTION_FREQ = [
 ];
 
 export const INCLUSION_CATALOGUE = [
-  { id: "blood_test",         name: "Blood test",           description: "HbA1c / lipid panel" },
-  { id: "pharmacist_review",  name: "Pharmacist review",    description: "Clinical check-in call" },
-  { id: "weight_check_kit",   name: "Weight check kit",     description: "Scales & tape measure" },
-  { id: "welcome_pack",       name: "Welcome pack",         description: "Onboarding materials" },
-  { id: "sharps_disposal",    name: "Sharps disposal kit",  description: "Safe needle disposal" },
-  { id: "nutritional_guide",  name: "Nutritional guide",    description: "Diet & lifestyle advice" },
-  { id: "progress_report",    name: "Progress report",      description: "Outcome summary" },
+  { id: "cyclizine",       name: "Cyclizine",        description: "Anti-nausea medication" },
+  { id: "loperamide",      name: "Loperamide",       description: "Anti-diarrhoeal medication" },
+  { id: "welcome_booklet", name: "Welcome booklet",  description: "Onboarding materials" },
+  { id: "sharps_bin",      name: "Sharps bin",       description: "Safe needle disposal" },
 ];
 
 export const INCLUSION_CYCLE_OPTIONS = [
@@ -70,9 +67,19 @@ export const INCLUSION_CYCLE_OPTIONS = [
   { id: "custom", label: "Custom",       days: null },
 ];
 
-export const BILLING_OPTIONS = [
-  { id: "upfront", title: "Pay Upfront", subtitle: "One payment for full duration" },
-  { id: "monthly", title: "Pay Monthly", subtitle: "Charge every month" },
-  { id: "quarterly", title: "Pay Every 3 Months", subtitle: "Charge quarterly" },
-  { id: "custom", title: "Custom Billing", subtitle: "Define a bespoke cadence" },
+export const OFFER_BILLING_CYCLE_OPTIONS = [
+  { id: "monthly", label: "Monthly",          days: 30  },
+  { id: "3m",      label: "Every 3 months",   days: 90  },
+  { id: "6m",      label: "Every 6 months",   days: 180 },
+  { id: "12m",     label: "Every 12 months",  days: 365 },
+  { id: "custom",  label: "Custom",           days: null },
+];
+
+export const TITRATION_CATALOGUE = [
+  { id: "mounjaro_normal",   name: "Mounjaro — Normal titration",   medicationId: "mounjaro", description: "2.5 → 5 → 7.5 → 10 → 12.5 → 15mg (4-week steps)" },
+  { id: "mounjaro_fast",     name: "Mounjaro — Fast titration",     medicationId: "mounjaro", description: "2.5 → 5 → 10 → 15mg (2-week steps)" },
+  { id: "mounjaro_advanced", name: "Mounjaro — Advanced titration", medicationId: "mounjaro", description: "Starts at 5mg, escalates to maximum dose" },
+  { id: "wegovy_standard",   name: "Wegovy — Standard titration",   medicationId: "wegovy",   description: "0.25 → 0.5 → 1 → 1.7 → 2.4mg (4-week steps)" },
+  { id: "wegovy_accelerated",name: "Wegovy — Accelerated titration",medicationId: "wegovy",   description: "0.25 → 1 → 2.4mg (2-week steps)" },
+  { id: "metformin_standard",name: "Metformin — Standard titration",medicationId: "metformin",description: "500mg → 850mg → 1000mg (2-week steps)" },
 ];

@@ -1,6 +1,6 @@
-import { ClipboardList, DropletBottleAlt, Dollar, CalendarPlus } from "flowbite-react-icons/outline";
+import { ClipboardList, DropletBottleAlt, Dollar, ShoppingBag } from "flowbite-react-icons/outline";
 import { Card, SummaryBlock } from "../components/UIComponents";
-import { ADDON_CATALOGUE, BILLING_OPTIONS, PRESCRIPTION_FREQ, INCLUSION_CATALOGUE, INCLUSION_CYCLE_OPTIONS } from "../constants/catalogues";
+import { ADDON_CATALOGUE, PRESCRIPTION_FREQ, INCLUSION_CATALOGUE, INCLUSION_CYCLE_OPTIONS, TITRATION_CATALOGUE, OFFER_BILLING_CYCLE_OPTIONS } from "../constants/catalogues";
 
 function formatPrice(price) {
   return `£${price.toFixed(2)}`;
@@ -45,10 +45,10 @@ export function SummaryPanel(props) {
                         <DropletBottleAlt size={13} className="text-blue-500 flex-shrink-0" />
                         {x.med?.name}
                       </div>
-                      <div className="text-xs font-mono text-gray-600 bg-white rounded-lg px-2.5 py-1.5 border border-gray-100 mb-1.5 leading-relaxed">
-                        {x.variants.length
-                          ? x.variants.join(" → ")
-                          : <span className="italic text-gray-400">No variants selected</span>}
+                      <div className="text-xs text-gray-600 bg-white rounded-lg px-2.5 py-1.5 border border-gray-100 mb-1.5">
+                        {x.titrationEnabled && x.titrationPathId
+                          ? TITRATION_CATALOGUE.find((t) => t.id === x.titrationPathId)?.name ?? x.titrationPathId
+                          : <span className="italic text-gray-400">No titration path</span>}
                       </div>
                       <div className="text-xs text-gray-400 font-medium">
                         Rx: {PRESCRIPTION_FREQ.find((p) => p.id === x.prescription.renewalFrequency)?.label ?? "—"}
@@ -120,29 +120,40 @@ export function SummaryPanel(props) {
             </SummaryBlock>
           </div>
 
-          {/* Billing */}
+          {/* Offers */}
           <div className="border-t border-gray-100 pt-5">
-            <SummaryBlock title="Billing">
-              <div className="rounded-xl border border-gray-200 bg-gray-50 p-3">
-                <div className="font-semibold text-sm text-gray-900 mb-2.5 flex items-center gap-2">
-                  <Dollar size={15} className="text-orange-500" />
-                  {BILLING_OPTIONS.find((b) => b.id === props.billingId)?.title ?? "Not selected"}
+            <SummaryBlock title="Offers">
+              {(props.offers ?? []).length > 0 ? (
+                <div className="space-y-1.5">
+                  {(props.offers ?? []).map((o) => {
+                    const cycleOpt = OFFER_BILLING_CYCLE_OPTIONS.find((c) => c.id === o.billingCycleId);
+                    const isBasket = o.offerType === "basket_value";
+                    return (
+                      <div key={o.key} className="flex items-center justify-between bg-orange-50 border border-orange-200 rounded-lg px-3 py-2 gap-2">
+                        <div className="flex items-center gap-2 truncate">
+                          {isBasket
+                            ? <ShoppingBag size={13} className="text-orange-500 flex-shrink-0" />
+                            : <Dollar size={13} className="text-orange-500 flex-shrink-0" />}
+                          <span className="text-sm font-medium text-gray-900 truncate">
+                            {isBasket ? "Basket value" : `£${o.price.toFixed(2)}`}
+                          </span>
+                        </div>
+                        <span className="text-xs font-semibold text-orange-700 uppercase bg-white px-2 py-0.5 rounded-full border border-orange-200 flex-shrink-0">
+                          {isBasket
+                            ? "Per order"
+                            : o.billingCycleId === "custom"
+                              ? `Every ${o.customBillingDays}d`
+                              : cycleOpt?.label}
+                        </span>
+                      </div>
+                    );
+                  })}
                 </div>
-                <div className="space-y-1.5 text-xs text-gray-500">
-                  <div className="flex items-center gap-2">
-                    <span className={`font-bold ${props.alignBillingWithDispatch ? "text-green-600" : "text-gray-300"}`}>
-                      {props.alignBillingWithDispatch ? "✓" : "○"}
-                    </span>
-                    <span>Align with dispatch</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span className={`font-bold ${props.chargeOnApproval ? "text-green-600" : "text-gray-300"}`}>
-                      {props.chargeOnApproval ? "✓" : "○"}
-                    </span>
-                    <span>Charge on approval</span>
-                  </div>
+              ) : (
+                <div className="rounded-xl border border-dashed border-gray-200 bg-gray-50 p-4 text-center text-sm text-gray-400">
+                  No offers added
                 </div>
-              </div>
+              )}
             </SummaryBlock>
           </div>
         </div>

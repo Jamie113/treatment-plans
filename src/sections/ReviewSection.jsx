@@ -1,6 +1,5 @@
 import { ClipboardList, Check, ExclamationCircle, Cog, Dollar } from "flowbite-react-icons/outline";
 import { Card } from "../components/UIComponents";
-import { BILLING_OPTIONS } from "../constants/catalogues";
 
 export function ReviewSection(props) {
   return (
@@ -24,12 +23,6 @@ export function ReviewSection(props) {
           </li>
           <li className="flex items-center gap-3 text-sm text-gray-700">
             <span className="inline-flex items-center justify-center w-6 h-6 bg-blue-700 text-white text-xs rounded-full font-bold flex-shrink-0">
-              {props.medications.reduce((acc, m) => acc + (m.variants?.length ?? 0), 0)}
-            </span>
-            total variant selections
-          </li>
-          <li className="flex items-center gap-3 text-sm text-gray-700">
-            <span className="inline-flex items-center justify-center w-6 h-6 bg-blue-700 text-white text-xs rounded-full font-bold flex-shrink-0">
               {(props.upsells ?? []).filter((u) => u.itemId).length}
             </span>
             upsell(s)
@@ -48,7 +41,10 @@ export function ReviewSection(props) {
           </li>
           <li className="flex items-center gap-3 text-sm text-gray-700">
             <Dollar size={15} className="text-gray-400 flex-shrink-0" />
-            Billing: <span className="font-medium">{BILLING_OPTIONS.find((b) => b.id === props.billingId)?.title ?? "Not selected"}</span>
+            <span className="font-medium">{(props.offers ?? []).length} offer{(props.offers ?? []).length !== 1 ? "s" : ""}</span>
+            {(props.offers ?? []).length === 0 && (
+              <span className="text-xs text-gray-400">(none added)</span>
+            )}
           </li>
         </ul>
       </div>
@@ -73,7 +69,7 @@ export function ReviewSection(props) {
           <ExclamationCircle size={18} className="flex-shrink-0 text-amber-600 mt-0.5" />
           <div>
             <p className="text-sm font-semibold text-amber-900">Complete the form to continue</p>
-            <p className="text-xs text-amber-700 mt-0.5">Add a plan name, medications, and dose variants to create.</p>
+            <p className="text-xs text-amber-700 mt-0.5">Add a plan name and at least one medication to create.</p>
           </div>
         </div>
       )}

@@ -7,7 +7,7 @@ import { MedicationsSection } from "./sections/MedicationsSection";
 import { AddOnsSection } from "./sections/AddOnsSection";
 import { DispatchSection } from "./sections/DispatchSection";
 import { PrescriptionRulesSection } from "./sections/PrescriptionRulesSection";
-import { BillingSection } from "./sections/BillingSection";
+import { OffersSection } from "./sections/OffersSection";
 import { InclusionsSection } from "./sections/InclusionsSection";
 import { ReviewSection } from "./sections/ReviewSection";
 import { SummaryPanel } from "./sections/SummaryPanel";
@@ -38,12 +38,7 @@ export default function App() {
     setRescheduleDaysEarlier,
     rescheduleDaysLater,
     setRescheduleDaysLater,
-    billingId,
-    setBillingId,
-    alignBillingWithDispatch,
-    setAlignBillingWithDispatch,
-    chargeOnApproval,
-    setChargeOnApproval,
+    offers,
     duration,
     cycleDays,
     ordersCount,
@@ -53,7 +48,6 @@ export default function App() {
     planConfigPreview,
     updateMedication,
     removeMedication,
-    moveVariant,
     addUpsell,
     removeUpsell,
     updateUpsell,
@@ -63,6 +57,9 @@ export default function App() {
     removeInclusion,
     updateInclusion,
     toggleInclusionOrder,
+    addOffer,
+    removeOffer,
+    updateOffer,
   } = state;
 
   function onCreate() {
@@ -137,7 +134,6 @@ export default function App() {
               validation={validation}
               updateMedication={updateMedication}
               removeMedication={removeMedication}
-              moveVariant={moveVariant}
             />
 
             <AddOnsSection
@@ -179,21 +175,19 @@ export default function App() {
               updateMedication={updateMedication}
             />
 
-            <BillingSection
-              billingId={billingId}
-              setBillingId={setBillingId}
-              alignBillingWithDispatch={alignBillingWithDispatch}
-              setAlignBillingWithDispatch={setAlignBillingWithDispatch}
-              chargeOnApproval={chargeOnApproval}
-              setChargeOnApproval={setChargeOnApproval}
+            <OffersSection
+              offers={offers}
+              addOffer={addOffer}
+              removeOffer={removeOffer}
+              updateOffer={updateOffer}
             />
 
             <ReviewSection
               medications={medications}
               upsells={upsells}
               inclusions={inclusions}
+              offers={offers}
               ordersCount={ordersCount}
-              billingId={billingId}
               validation={validation}
               planConfigPreview={planConfigPreview}
             />
@@ -208,9 +202,7 @@ export default function App() {
               selectedMedicationDetails={selectedMedicationDetails}
               upsells={upsells}
               inclusions={inclusions}
-              billingId={billingId}
-              alignBillingWithDispatch={alignBillingWithDispatch}
-              chargeOnApproval={chargeOnApproval}
+              offers={offers}
               validation={validation}
               planConfigPreview={planConfigPreview}
             />

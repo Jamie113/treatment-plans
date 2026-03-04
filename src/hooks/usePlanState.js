@@ -4,11 +4,10 @@ import {
   ADDON_CATALOGUE,
   DURATION_OPTIONS,
   CYCLE_OPTIONS,
-  PRESCRIPTION_FREQ,
-  BILLING_OPTIONS,
   INCLUSION_CYCLE_OPTIONS,
+  OFFER_BILLING_CYCLE_OPTIONS,
 } from "../constants/catalogues";
-import { addDays, newMedicationItem, newInclusionItem, newUpsellItem } from "../utils/helpers";
+import { addDays, newMedicationItem, newInclusionItem, newUpsellItem, newOfferItem } from "../utils/helpers";
 
 export function usePlanState() {
   const [planName, setPlanName] = useState("");
@@ -32,10 +31,7 @@ export function usePlanState() {
   const [rescheduleDaysLater, setRescheduleDaysLater] = useState(10);
 
   const [inclusions, setInclusions] = useState([]);
-
-  const [billingId, setBillingId] = useState("monthly");
-  const [alignBillingWithDispatch, setAlignBillingWithDispatch] = useState(true);
-  const [chargeOnApproval, setChargeOnApproval] = useState(true);
+  const [offers, setOffers] = useState([]);
 
   // Computed values
   const duration = useMemo(() => {
@@ -76,22 +72,21 @@ export function usePlanState() {
     const anyMedicationSelected = medications.some((m) => m.medicationId);
     if (!anyMedicationSelected) errors.medications = "Add at least one medication.";
 
-    const medicationVariantErrors = medications.map((m) => {
+    const medicationTitrationErrors = medications.map((m) => {
       if (!m.medicationId) return null;
-      if (!m.variants?.length) return "Select at least one variant (dose) for this medication.";
+      if (m.titrationEnabled && !m.titrationPathId) return "Select a titration path for this medication.";
       return null;
     });
 
-    const hasVariantError = medicationVariantErrors.some(Boolean);
+    const hasTitrationError = medicationTitrationErrors.some(Boolean);
 
     const canCreate =
       !errors.planName &&
       !errors.medications &&
-      !hasVariantError &&
-      Boolean(billingId);
+      !hasTitrationError;
 
-    return { errors, medicationVariantErrors, canCreate };
-  }, [planName, medications, billingId]);
+    return { errors, medicationTitrationErrors, canCreate };
+  }, [planName, medications]);
 
   // Medication handlers
   function updateMedication(key, patch) {
@@ -102,21 +97,6 @@ export function usePlanState() {
 
   function removeMedication(key) {
     setMedications((prev) => prev.filter((m) => m.key !== key));
-  }
-
-  function moveVariant(itemKey, index, direction) {
-    setMedications((prev) =>
-      prev.map((m) => {
-        if (m.key !== itemKey) return m;
-        const arr = [...m.variants];
-        const newIndex = index + direction;
-        if (newIndex < 0 || newIndex >= arr.length) return m;
-        const tmp = arr[index];
-        arr[index] = arr[newIndex];
-        arr[newIndex] = tmp;
-        return { ...m, variants: arr };
-      })
-    );
   }
 
   // Inclusions handlers
@@ -175,6 +155,21 @@ export function usePlanState() {
     );
   }
 
+  // Offer handlers
+  function addOffer() {
+    setOffers((prev) => [...prev, newOfferItem()]);
+  }
+
+  function removeOffer(key) {
+    setOffers((prev) => prev.filter((o) => o.key !== key));
+  }
+
+  function updateOffer(key, patch) {
+    setOffers((prev) =>
+      prev.map((o) => (o.key === key ? { ...o, ...patch } : o))
+    );
+  }
+
   const planConfigPreview = useMemo(() => {
     return {
       name: planName,
@@ -193,8 +188,9 @@ export function usePlanState() {
         .filter((m) => m.medicationId)
         .map((m) => ({
           medication_id: m.medicationId,
-          variants: m.variants,
-          movement_rules: m.movement,
+          ...(m.titrationEnabled && m.titrationPathId && {
+            titration_path_id: m.titrationPathId,
+          }),
           quantity_per_order: m.quantityPerOrder,
           packaging: m.packaging,
           prescription_rules: m.prescription,
@@ -228,11 +224,17 @@ export function usePlanState() {
               : { cycle_days: i.cycleId === "custom" ? i.customCycleDays : cycleOption?.days }),
           };
         }),
-      billing_plan: {
-        type: billingId,
-        align_with_dispatch: alignBillingWithDispatch,
-        charge_on_approval: chargeOnApproval,
-      },
+      offers: offers.map((o) => {
+        if (o.offerType === "basket_value") {
+          return { type: "basket_value" };
+        }
+        const cycleOption = OFFER_BILLING_CYCLE_OPTIONS.find((c) => c.id === o.billingCycleId);
+        return {
+          type: "fixed_price",
+          price: o.price,
+          billing_cycle_days: o.billingCycleId === "custom" ? o.customBillingDays : cycleOption?.days,
+        };
+      }),
     };
   }, [
     planName,
@@ -246,9 +248,7 @@ export function usePlanState() {
     medications,
     upsells,
     inclusions,
-    billingId,
-    alignBillingWithDispatch,
-    chargeOnApproval,
+    offers,
   ]);
 
   return {
@@ -257,6 +257,7 @@ export function usePlanState() {
     setInclusions,
     upsells,
     setUpsells,
+    offers,
     planName,
     setPlanName,
     durationId,
@@ -279,12 +280,6 @@ export function usePlanState() {
     setRescheduleDaysEarlier,
     rescheduleDaysLater,
     setRescheduleDaysLater,
-    billingId,
-    setBillingId,
-    alignBillingWithDispatch,
-    setAlignBillingWithDispatch,
-    chargeOnApproval,
-    setChargeOnApproval,
 
     // Computed values
     duration,
@@ -298,7 +293,6 @@ export function usePlanState() {
     // Handlers
     updateMedication,
     removeMedication,
-    moveVariant,
     addUpsell,
     removeUpsell,
     updateUpsell,
@@ -307,5 +301,8 @@ export function usePlanState() {
     removeInclusion,
     updateInclusion,
     toggleInclusionOrder,
+    addOffer,
+    removeOffer,
+    updateOffer,
   };
 }
