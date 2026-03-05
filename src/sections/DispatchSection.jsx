@@ -101,19 +101,6 @@ export function DispatchSection(props) {
           </p>
         </div>
       )}
-
-      {/* Order pills — count only, no dates */}
-      <div className="flex flex-wrap gap-1.5">
-        {orderNumbers.map((n) => (
-          <div
-            key={n}
-            className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg border border-gray-200 bg-white text-xs font-medium text-gray-500"
-          >
-            <Inbox size={11} className="text-gray-400" />
-            {n}
-          </div>
-        ))}
-      </div>
     </Card>
   );
 }

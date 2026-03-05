@@ -5,7 +5,7 @@ import { DURATION_OPTIONS } from "../constants/catalogues";
 
 export function PlanBasicsSection(props) {
   return (
-    <Card title="Plan details" icon={<Cog size={18} />}>
+    <Card title="Plan details" subtitle="Name your plan and set a duration" icon={<Cog size={18} />}>
       <div className="space-y-4">
         {/* Plan name */}
         <div>
