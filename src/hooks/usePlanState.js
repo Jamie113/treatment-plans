@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import {
   MEDICATION_CATALOGUE,
   ADDON_CATALOGUE,
+  INCLUSION_CATALOGUE,
   DURATION_OPTIONS,
   CYCLE_OPTIONS,
   INCLUSION_CYCLE_OPTIONS,
@@ -64,6 +65,40 @@ export function usePlanState() {
       return { ...m, med };
     });
   }, [medications]);
+
+  const clinicalProtocolItems = useMemo(() => {
+    const items = [];
+
+    // Medications from the medications section
+    selectedMedicationDetails
+      .filter((m) => m.medicationId)
+      .forEach((m) => {
+        items.push({
+          key: m.key,
+          type: "medication",
+          name: m.med?.name ?? "Medication",
+          prescription: m.prescription,
+        });
+      });
+
+    // Medication-type inclusions
+    inclusions
+      .filter((i) => {
+        if (!i.itemId) return false;
+        return INCLUSION_CATALOGUE.find((c) => c.id === i.itemId)?.isMedication;
+      })
+      .forEach((i) => {
+        const cat = INCLUSION_CATALOGUE.find((c) => c.id === i.itemId);
+        items.push({
+          key: i.key,
+          type: "inclusion",
+          name: cat?.name ?? "Medication",
+          prescription: i.prescription ?? { renewalMonths: "3", approvalRequiredOnDoseChange: false },
+        });
+      });
+
+    return items;
+  }, [selectedMedicationDetails, inclusions]);
 
   const validation = useMemo(() => {
     const errors = {};
@@ -192,7 +227,10 @@ export function usePlanState() {
             titration_path_id: m.titrationPathId,
           }),
           quantity_per_order: m.quantityPerOrder,
-          prescription_rules: m.prescription,
+          prescription_rules: {
+            renewal_months: Number(m.prescription.renewalMonths),
+            approval_required_on_dose_change: m.prescription.approvalRequiredOnDoseChange,
+          },
         })),
       upsells: upsells
         .filter((u) => u.itemId)
@@ -286,6 +324,7 @@ export function usePlanState() {
     ordersCount,
     orderPreview,
     selectedMedicationDetails,
+    clinicalProtocolItems,
     validation,
     planConfigPreview,
 

@@ -1,6 +1,6 @@
 import { ClipboardList, DropletBottleAlt, Dollar, ShoppingBag } from "flowbite-react-icons/outline";
 import { Card, SummaryBlock } from "../components/UIComponents";
-import { ADDON_CATALOGUE, PRESCRIPTION_FREQ, INCLUSION_CATALOGUE, INCLUSION_CYCLE_OPTIONS, TITRATION_CATALOGUE, OFFER_BILLING_CYCLE_OPTIONS } from "../constants/catalogues";
+import { ADDON_CATALOGUE, PRESCRIPTION_RENEWAL_OPTIONS, INCLUSION_CATALOGUE, INCLUSION_CYCLE_OPTIONS, TITRATION_CATALOGUE, OFFER_BILLING_CYCLE_OPTIONS } from "../constants/catalogues";
 
 function formatPrice(price) {
   return `£${price.toFixed(2)}`;
@@ -51,7 +51,7 @@ export function SummaryPanel(props) {
                           : <span className="italic text-gray-400">No titration path</span>}
                       </div>
                       <div className="text-xs text-gray-400 font-medium">
-                        Rx: {PRESCRIPTION_FREQ.find((p) => p.id === x.prescription.renewalFrequency)?.label ?? "—"}
+                        Rx: every {PRESCRIPTION_RENEWAL_OPTIONS.find((p) => p.id === x.prescription.renewalMonths)?.label ?? `${x.prescription.renewalMonths}m`}
                       </div>
                     </div>
                   ))}

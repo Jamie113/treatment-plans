@@ -15,16 +15,6 @@ export function MedicationsSection(props) {
       title="Medications"
       subtitle="Add one or more medications and link the appropriate titration path."
       icon={<DropletBottleAlt size={18} />}
-      right={
-        <button
-          type="button"
-          onClick={() => props.setMedications((p) => [...p, newMedicationItem()])}
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium text-gray-700 bg-white border border-gray-200 rounded-xl hover:bg-gray-50 hover:border-gray-300 transition-colors"
-        >
-          <Plus size={15} />
-          Add medication
-        </button>
-      }
     >
       <div className="space-y-5">
         {props.selectedMedicationDetails.map((item, idx) => (
@@ -38,6 +28,16 @@ export function MedicationsSection(props) {
             removeMedication={props.removeMedication}
           />
         ))}
+
+        {/* Add button */}
+        <button
+          type="button"
+          onClick={() => props.setMedications((p) => [...p, newMedicationItem()])}
+          className="flex items-center gap-2 w-full px-4 py-2.5 text-sm font-medium text-blue-700 border border-dashed border-blue-300 rounded-xl hover:bg-blue-50 hover:border-blue-400 transition-colors"
+        >
+          <Plus size={15} />
+          Add medication
+        </button>
       </div>
     </Card>
   );
