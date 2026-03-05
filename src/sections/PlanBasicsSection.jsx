@@ -9,8 +9,7 @@ export function PlanBasicsSection(props) {
       <div className="space-y-4">
         {/* Plan name */}
         <div>
-          <label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-3">
-            <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-blue-700 text-white text-xs font-bold flex-shrink-0">1</span>
+          <label className="block text-sm font-medium text-gray-700 mb-1.5">
             Plan name
           </label>
           <TextInput
@@ -30,8 +29,7 @@ export function PlanBasicsSection(props) {
 
         {/* Duration */}
         <div>
-          <label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-3">
-            <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-blue-700 text-white text-xs font-bold flex-shrink-0">2</span>
+          <label className="block text-sm font-medium text-gray-700 mb-1.5">
             Duration
           </label>
           {props.durationId !== "custom" ? (

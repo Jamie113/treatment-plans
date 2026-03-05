@@ -140,8 +140,8 @@ function MedicationItem({ item, index, medications, medError, updateMedication, 
         )}
       </div>
 
-      {/* Quantity, packaging, remove */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-4 border-t border-gray-200">
+      {/* Quantity + remove */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4 border-t border-gray-200">
         <Field label="Quantity per order">
           <input
             type="number"
@@ -154,19 +154,6 @@ function MedicationItem({ item, index, medications, medError, updateMedication, 
               })
             }
           />
-        </Field>
-        <Field label="Packaging">
-          <select
-            className={SELECT_CLS}
-            value={item.packaging}
-            onChange={(e) =>
-              updateMedication(item.key, { packaging: e.target.value })
-            }
-          >
-            <option>Standard</option>
-            <option>Starter kit</option>
-            <option>Clinic pack</option>
-          </select>
         </Field>
         <div className="flex items-end">
           <button

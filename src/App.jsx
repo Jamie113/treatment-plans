@@ -136,16 +136,6 @@ export default function App() {
               removeMedication={removeMedication}
             />
 
-            <AddOnsSection
-              upsells={upsells}
-              ordersCount={ordersCount}
-              duration={duration}
-              addUpsell={addUpsell}
-              removeUpsell={removeUpsell}
-              updateUpsell={updateUpsell}
-              toggleUpsellOrder={toggleUpsellOrder}
-            />
-
             <InclusionsSection
               inclusions={inclusions}
               ordersCount={ordersCount}
@@ -180,6 +170,16 @@ export default function App() {
               addOffer={addOffer}
               removeOffer={removeOffer}
               updateOffer={updateOffer}
+            />
+
+            <AddOnsSection
+              upsells={upsells}
+              ordersCount={ordersCount}
+              duration={duration}
+              addUpsell={addUpsell}
+              removeUpsell={removeUpsell}
+              updateUpsell={updateUpsell}
+              toggleUpsellOrder={toggleUpsellOrder}
             />
 
             <ReviewSection

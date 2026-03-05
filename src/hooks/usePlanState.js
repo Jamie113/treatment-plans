@@ -192,7 +192,6 @@ export function usePlanState() {
             titration_path_id: m.titrationPathId,
           }),
           quantity_per_order: m.quantityPerOrder,
-          packaging: m.packaging,
           prescription_rules: m.prescription,
         })),
       upsells: upsells

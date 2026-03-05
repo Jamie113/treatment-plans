@@ -53,7 +53,6 @@ export function newMedicationItem() {
     titrationEnabled: false,
     titrationPathId: "",
     quantityPerOrder: 1,
-    packaging: "Standard",
     prescription: {
       required: true,
       renewalFrequency: "every_3_months",
