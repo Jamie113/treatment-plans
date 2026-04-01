@@ -56,6 +56,7 @@ export function newMedicationItem() {
     medicationId: "",
     titrationEnabled: false,
     titrationPathId: "",
+    circuitBreaker: false,
     quantityPerOrder: 1,
     prescription: {
       renewalMonths: "3",

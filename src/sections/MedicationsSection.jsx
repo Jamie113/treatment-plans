@@ -44,50 +44,64 @@ export function MedicationsSection(props) {
 }
 
 function MedicationItem({ item, index, medications, medError, updateMedication, removeMedication }) {
-  // Filter titration paths to those matching the selected medication
   const availablePaths = TITRATION_CATALOGUE.filter(
     (t) => t.medicationId === item.medicationId
   );
-
   const selectedPath = TITRATION_CATALOGUE.find((t) => t.id === item.titrationPathId);
 
   return (
-    <div className="rounded-2xl border border-gray-200 bg-gray-50/50 p-5 space-y-5 animate-slide-in">
-      {/* Medication select */}
-      <div>
-        <label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-2">
-          <DropletBottleAlt size={14} className="text-gray-400" />
-          Medication
-        </label>
-        <select
-          className={SELECT_CLS}
-          value={item.medicationId}
-          onChange={(e) => {
-            const nextId = e.target.value;
-            const med = MEDICATION_CATALOGUE.find((x) => x.id === nextId);
-            updateMedication(item.key, {
-              medicationId: nextId,
-              titrationPathId: "",
-              prescription: {
-                ...item.prescription,
-                required: med?.requiresPrescriptionDefault ?? true,
-              },
-            });
-          }}
-        >
-          <option value="">Select medication…</option>
-          {MEDICATION_CATALOGUE.map((m) => (
-            <option key={m.id} value={m.id}>{m.name}</option>
-          ))}
-        </select>
+    <div className="rounded-2xl border border-gray-200 bg-gray-50/50 p-5 space-y-4 animate-slide-in">
+
+      {/* Medication + quantity on one row */}
+      <div className="grid grid-cols-3 gap-3">
+        <div className="col-span-2">
+          <label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-2">
+            <DropletBottleAlt size={14} className="text-gray-400" />
+            Medication
+          </label>
+          <select
+            className={SELECT_CLS}
+            value={item.medicationId}
+            onChange={(e) => {
+              const nextId = e.target.value;
+              const med = MEDICATION_CATALOGUE.find((x) => x.id === nextId);
+              updateMedication(item.key, {
+                medicationId: nextId,
+                titrationPathId: "",
+                prescription: {
+                  ...item.prescription,
+                  required: med?.requiresPrescriptionDefault ?? true,
+                },
+              });
+            }}
+          >
+            <option value="">Select medication…</option>
+            {MEDICATION_CATALOGUE.map((m) => (
+              <option key={m.id} value={m.id}>{m.name}</option>
+            ))}
+          </select>
+        </div>
+        <Field label="Qty per order">
+          <input
+            type="number"
+            min={1}
+            className={INPUT_CLS}
+            value={item.quantityPerOrder}
+            onChange={(e) =>
+              updateMedication(item.key, {
+                quantityPerOrder: Number(e.target.value || 1),
+              })
+            }
+          />
+        </Field>
       </div>
 
-      {/* Titration path */}
+      {/* Titration — only shown when enabled */}
       <div className="rounded-xl border border-gray-200 bg-white p-4 space-y-3">
         <div className="flex items-center justify-between">
           <label className="flex items-center gap-2 text-sm font-medium text-gray-700">
             <Fire size={14} className="text-gray-400" />
-            Titration path
+            Titration
           </label>
           <Toggle
             label="Enable"
@@ -96,6 +110,7 @@ function MedicationItem({ item, index, medications, medError, updateMedication, 
               updateMedication(item.key, {
                 titrationEnabled: v,
                 titrationPathId: v ? item.titrationPathId : "",
+                circuitBreaker: v ? item.circuitBreaker : false,
               })
             }
           />
@@ -120,53 +135,43 @@ function MedicationItem({ item, index, medications, medError, updateMedication, 
                   ))}
                 </select>
 
-                {/* Description hint */}
                 {selectedPath && (
-                  <p className="text-xs text-gray-400">
-                    {selectedPath.description}
-                  </p>
+                  <p className="text-xs text-gray-400">{selectedPath.description}</p>
                 )}
 
-                {/* Validation error */}
                 {medError && (
                   <div className="flex items-start gap-2 text-sm text-red-600">
                     <ExclamationCircle size={15} className="flex-shrink-0 mt-0.5" />
                     <span>{medError}</span>
                   </div>
                 )}
+
+                {/* Circuit breaker */}
+                <div className="pt-2 border-t border-gray-100">
+                  <Toggle
+                    label="Circuit breaker — pause auto-titration at current dose"
+                    checked={item.circuitBreaker}
+                    onChange={(v) => updateMedication(item.key, { circuitBreaker: v })}
+                  />
+                </div>
               </>
             )}
           </>
         )}
       </div>
 
-      {/* Quantity + remove */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4 border-t border-gray-200">
-        <Field label="Quantity per order">
-          <input
-            type="number"
-            min={1}
-            className={INPUT_CLS}
-            value={item.quantityPerOrder}
-            onChange={(e) =>
-              updateMedication(item.key, {
-                quantityPerOrder: Number(e.target.value || 1),
-              })
-            }
-          />
-        </Field>
-        <div className="flex items-end">
-          <button
-            type="button"
-            className="inline-flex items-center justify-center gap-2 w-full px-3 py-2 text-sm font-medium text-red-600 border border-red-200 bg-white rounded-xl hover:bg-red-50 hover:border-red-300 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
-            onClick={() => removeMedication(item.key)}
-            disabled={medications.length === 1}
-            title={medications.length === 1 ? "Keep at least one row" : "Remove medication"}
-          >
-            <TrashBin size={15} />
-            Remove
-          </button>
-        </div>
+      {/* Remove */}
+      <div className="flex justify-end pt-1">
+        <button
+          type="button"
+          className="inline-flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-red-600 border border-red-200 bg-white rounded-xl hover:bg-red-50 hover:border-red-300 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+          onClick={() => removeMedication(item.key)}
+          disabled={medications.length === 1}
+          title={medications.length === 1 ? "Keep at least one row" : "Remove medication"}
+        >
+          <TrashBin size={15} />
+          Remove
+        </button>
       </div>
     </div>
   );
