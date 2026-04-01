@@ -45,18 +45,19 @@ export const CYCLE_OPTIONS = [
   { id: "custom", label: "Custom", days: null },
 ];
 
-export const PRESCRIPTION_FREQ = [
-  { id: "every_order", label: "Every order" },
-  { id: "every_2_orders", label: "Every 2 orders" },
-  { id: "every_3_months", label: "Every 3 months" },
-  { id: "custom", label: "Custom" },
+export const PRESCRIPTION_RENEWAL_OPTIONS = [
+  { id: "1",  months: 1,  label: "1 month"   },
+  { id: "2",  months: 2,  label: "2 months"  },
+  { id: "3",  months: 3,  label: "3 months"  },
+  { id: "6",  months: 6,  label: "6 months"  },
+  { id: "12", months: 12, label: "12 months" },
 ];
 
 export const INCLUSION_CATALOGUE = [
-  { id: "cyclizine",       name: "Cyclizine",        description: "Anti-nausea medication" },
-  { id: "loperamide",      name: "Loperamide",       description: "Anti-diarrhoeal medication" },
-  { id: "welcome_booklet", name: "Welcome booklet",  description: "Onboarding materials" },
-  { id: "sharps_bin",      name: "Sharps bin",       description: "Safe needle disposal" },
+  { id: "cyclizine",       name: "Cyclizine",        description: "Anti-nausea medication",    isMedication: true  },
+  { id: "loperamide",      name: "Loperamide",       description: "Anti-diarrhoeal medication", isMedication: true  },
+  { id: "welcome_booklet", name: "Welcome booklet",  description: "Onboarding materials",       isMedication: false },
+  { id: "sharps_bin",      name: "Sharps bin",       description: "Safe needle disposal",       isMedication: false },
 ];
 
 export const INCLUSION_CYCLE_OPTIONS = [

@@ -43,6 +43,10 @@ export function newInclusionItem() {
     orderNumbers: [1],               // used when scheduleType === "specific_orders"
     cycleId: "3m",                   // used when scheduleType === "recurring_cycle"
     customCycleDays: 90,
+    prescription: {
+      renewalMonths: "3",
+      approvalRequiredOnDoseChange: false,
+    },
   };
 }
 
@@ -54,8 +58,7 @@ export function newMedicationItem() {
     titrationPathId: "",
     quantityPerOrder: 1,
     prescription: {
-      required: true,
-      renewalFrequency: "every_3_months",
+      renewalMonths: "3",
       approvalRequiredOnDoseChange: true,
     },
   };

@@ -44,6 +44,7 @@ export default function App() {
     ordersCount,
     orderPreview,
     selectedMedicationDetails,
+    clinicalProtocolItems,
     validation,
     planConfigPreview,
     updateMedication,
@@ -161,8 +162,9 @@ export default function App() {
             />
 
             <PrescriptionRulesSection
-              selectedMedicationDetails={selectedMedicationDetails}
+              clinicalProtocolItems={clinicalProtocolItems}
               updateMedication={updateMedication}
+              updateInclusion={updateInclusion}
             />
 
             <OffersSection
