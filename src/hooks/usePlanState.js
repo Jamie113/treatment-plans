@@ -107,20 +107,21 @@ export function usePlanState() {
     const anyMedicationSelected = medications.some((m) => m.medicationId);
     if (!anyMedicationSelected) errors.medications = "Add at least one medication.";
 
-    const medicationTitrationErrors = medications.map((m) => {
+    const medicationVariantErrors = medications.map((m) => {
       if (!m.medicationId) return null;
-      if (m.titrationEnabled && !m.titrationPathId) return "Select a titration path for this medication.";
+      const hasVariant = (m.variants ?? []).some((v) => v.variantId);
+      if (!hasVariant) return "Select at least one variant.";
       return null;
     });
 
-    const hasTitrationError = medicationTitrationErrors.some(Boolean);
+    const hasVariantError = medicationVariantErrors.some(Boolean);
 
     const canCreate =
       !errors.planName &&
       !errors.medications &&
-      !hasTitrationError;
+      !hasVariantError;
 
-    return { errors, medicationTitrationErrors, canCreate };
+    return { errors, medicationTitrationErrors: medicationVariantErrors, canCreate };
   }, [planName, medications]);
 
   // Medication handlers
@@ -132,6 +133,36 @@ export function usePlanState() {
 
   function removeMedication(key) {
     setMedications((prev) => prev.filter((m) => m.key !== key));
+  }
+
+  function addVariant(medicationKey) {
+    setMedications((prev) =>
+      prev.map((m) =>
+        m.key === medicationKey
+          ? { ...m, variants: [...(m.variants ?? []), { key: crypto.randomUUID(), variantId: "", circuitBreaker: false }] }
+          : m
+      )
+    );
+  }
+
+  function removeVariant(medicationKey, variantKey) {
+    setMedications((prev) =>
+      prev.map((m) =>
+        m.key === medicationKey
+          ? { ...m, variants: (m.variants ?? []).filter((v) => v.key !== variantKey) }
+          : m
+      )
+    );
+  }
+
+  function updateVariant(medicationKey, variantKey, patch) {
+    setMedications((prev) =>
+      prev.map((m) =>
+        m.key === medicationKey
+          ? { ...m, variants: (m.variants ?? []).map((v) => (v.key === variantKey ? { ...v, ...patch } : v)) }
+          : m
+      )
+    );
   }
 
   // Inclusions handlers
@@ -223,9 +254,13 @@ export function usePlanState() {
         .filter((m) => m.medicationId)
         .map((m) => ({
           medication_id: m.medicationId,
-          ...(m.titrationEnabled && m.titrationPathId && {
-            titration_path_id: m.titrationPathId,
-          }),
+          variants: (m.variants ?? [])
+            .filter((v) => v.variantId)
+            .map((v) => ({
+              variant_id: v.variantId,
+              ...(m.titrationEnabled && { circuit_breaker: v.circuitBreaker }),
+            })),
+          titration_enabled: m.titrationEnabled,
           quantity_per_order: m.quantityPerOrder,
           prescription_rules: {
             renewal_months: Number(m.prescription.renewalMonths),
@@ -331,6 +366,9 @@ export function usePlanState() {
     // Handlers
     updateMedication,
     removeMedication,
+    addVariant,
+    removeVariant,
+    updateVariant,
     addUpsell,
     removeUpsell,
     updateUpsell,

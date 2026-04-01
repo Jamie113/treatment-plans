@@ -49,6 +49,9 @@ export default function App() {
     planConfigPreview,
     updateMedication,
     removeMedication,
+    addVariant,
+    removeVariant,
+    updateVariant,
     addUpsell,
     removeUpsell,
     updateUpsell,
@@ -135,6 +138,9 @@ export default function App() {
               validation={validation}
               updateMedication={updateMedication}
               removeMedication={removeMedication}
+              addVariant={addVariant}
+              removeVariant={removeVariant}
+              updateVariant={updateVariant}
             />
 
             <InclusionsSection

@@ -54,9 +54,8 @@ export function newMedicationItem() {
   return {
     key: crypto.randomUUID(),
     medicationId: "",
+    variants: [{ key: crypto.randomUUID(), variantId: "", circuitBreaker: false }],
     titrationEnabled: false,
-    titrationPathId: "",
-    circuitBreaker: false,
     quantityPerOrder: 1,
     prescription: {
       renewalMonths: "3",
